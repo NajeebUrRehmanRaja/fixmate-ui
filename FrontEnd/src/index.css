@@ -1,4 +1,12 @@
 @import "tailwindcss";
 @plugin "daisyui"{
     themes: dark --default;
+    /* primary: "green";
+    secondary: "#14B8A6";
+    bg: "#F8FAFC";
+    Surface: "#FFFFFF";
+    textPrimary: "#1E293B";
+    textMuted: "#475569";
+    Danger: "#EF4444";
+    Success: "#22C55E"; */
 }
