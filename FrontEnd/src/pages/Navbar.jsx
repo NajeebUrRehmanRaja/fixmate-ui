@@ -1,45 +1,80 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import HandleButton from "../components/ButtonComponents";
+import React from 'react'
 
 const Navbar = () => {
-  const navLinkStyle = ({ isActive }) =>
-    isActive
-      ? "text-blue-700 font-semibold border-b-2 border-blue-600"
-      : "text-gray-700 hover:text-blue-600";
-
   return (
-    <nav className="bg-white shadow-md px-25 py-3 flex justify-between items-center fixed w-full z-10">
-      <Link to="/" className="text-2xl font-bold text-blue-600">
-        FixMate
-      </Link>
-      <div className="space-x-6">
-        <NavLink to="/" className={navLinkStyle}>
-          Home
-        </NavLink>
-        <NavLink to="/about" className={navLinkStyle}>
-          About
-        </NavLink>
-        <NavLink to="/report" className={navLinkStyle}>
-          Reports
-        </NavLink>
+    <div className="navbar bg-base-100 shadow-sm">
+      <div className="navbar-start">
+        <div className="dropdown">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              {" "}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h8m-8 6h16"
+              />{" "}
+            </svg>
+          </div>
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+          >
+            <li>
+              <a>Item 1</a>
+            </li>
+            <li>
+              <a>Parent</a>
+              <ul className="p-2">
+                <li>
+                  <a>Submenu 1</a>
+                </li>
+                <li>
+                  <a>Submenu 2</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a>Item 3</a>
+            </li>
+          </ul>
+        </div>
+        <a className="btn btn-ghost text-xl">daisyUI</a>
       </div>
-      <div className="space-x-4">
-        <Link to="/login">
-          <HandleButton
-            className="bg-blue-500 text-white font-bold p-2 rounded hover:bg-blue-700 transition duration-300 ease-in-out"
-            childern="Login"
-          />
-        </Link>
-        <Link to="/getstarted">
-          <HandleButton
-            className="bg-blue-500 text-white font-bold p-2 rounded hover:bg-blue-700 transition duration-300 ease-in-out"
-            childern="Get Started"
-          />
-        </Link>
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1">
+          <li>
+            <a>Item 1</a>
+          </li>
+          <li>
+            <details>
+              <summary>Parent</summary>
+              <ul className="p-2">
+                <li>
+                  <a>Submenu 1</a>
+                </li>
+                <li>
+                  <a>Submenu 2</a>
+                </li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <a>Item 3</a>
+          </li>
+        </ul>
       </div>
-    </nav>
+      <div className="navbar-end">
+        <a className="btn">Button</a>
+      </div>
+    </div>
   );
-};
+}
 
-export default Navbar;
+export default Navbar
