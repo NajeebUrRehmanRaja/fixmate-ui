@@ -15,7 +15,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for mobile menu
 
   return (
-    <nav className="flex justify-between px-24 items-center bg-gradient-to-r from-blue-500 to-purple-500 p-4 fixed w-full shadow-md z-10">
+    <nav className="flex justify-between items-center bg-gradient-to-r from-blue-500 to-purple-500 p-4 fixed w-full shadow-md z-10">
       {/* Logo */}
       <div>
         <NavLink to="/" className="text-3xl font-bold text-white">
