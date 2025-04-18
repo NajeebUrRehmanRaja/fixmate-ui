@@ -2,7 +2,7 @@ import React from "react";
 
 const AIReviewBox = ({ filename = "code-example.js", code, issues = [] }) => {
   return (
-    <div className="relative mt-16 rounded-lg border bg-code w-[1000px] text-code-foreground overflow-hidden shadow-xl">
+    <div className="relative mt-16 rounded-lg border bg-code w-[500px] md:w-[1000px] text-code-foreground overflow-hidden shadow-xl">
       <div className="flex items-center justify-between border-b border-border px-4 py-2">
         <div className="flex items-center space-x-1.5">
           <div className="h-2.5 w-2.5 rounded-full bg-red-500" />

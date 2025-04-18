@@ -62,7 +62,7 @@ const issues = [
 
 const Home = () => {
   return (
-    <div className="flex flex-col items-center justify-center pt-50">
+    <div className="flex flex-col items-center justify-center pt-50 ">
       <div className="flex flex-col items-center justify-center space-y-2 ">
         <h6 className="px-3 py-1 border rounded-full">
           New Feature: Multi-language Support
@@ -90,10 +90,43 @@ const Home = () => {
       </Link>
       <AIReviewBox
         filename="code-example.js"
+        
         code={codeExmple}
         issues={issues}
       />
-      
+      <div className="flex flex-col items-center justify-center space-y-2 mt-10">
+        <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+          How it works
+        </h2>
+        <div className="flex flex-row items-center justify-center max-w-[700px] space-x-5 text-muted-foreground md:text-xl text-white">
+          {" "}
+          <div>
+            <p className="text-white">
+              CodeScribe uses advanced AI algorithms to analyze your code and
+              provide instant feedback. It identifies potential bugs, suggests
+              improvements, and helps you write cleaner, more efficient code.
+            </p>
+          </div>
+          <div>
+            <p className="text-white">
+              With CodeScribe, you can focus on what matters most: building
+              great software. Let us handle the code reviews and bug detection
+              for you.
+            </p>
+          </div>
+        </div>
+
+        {/* <p className="text-white">
+          CodeScribe uses advanced AI algorithms to analyze your code and
+          provide instant feedback. It identifies potential bugs, suggests
+          improvements, and helps you write cleaner, more efficient code.
+        </p>
+        <br />
+        <p className="text-white">
+          With CodeScribe, you can focus on what matters most: building great
+          software. Let us handle the code reviews and bug detection for you.
+        </p> */}
+      </div>
     </div>
   );
 };
