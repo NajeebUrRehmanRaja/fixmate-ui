@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import HandleButton from "../components/ButtonComponents";
+import Button from "../components/ButtonComponents";
 import { MdMenu, MdClose } from "react-icons/md"; // Import icons
+import { GoArrowRight } from "react-icons/go";
+
 
 // Utility function to handle active/inactive link styles
 const getNavLinkClass = ({ isActive }) =>
   isActive
-    ? "bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent underline underline-offset-5 transition duration-300 "
+    ? "text-blue-900 font-bold underline underline-offset-5 transition duration-300 "
     : "text-white hover:text-gray-300 transition duration-300";
 
 const Navbar = () => {
@@ -48,10 +50,20 @@ const Navbar = () => {
       {/* Buttons */}
       <div className="hidden md:flex space-x-4">
         <Link to="/login">
-          <HandleButton variant="secondary">Log In</HandleButton>
+          <Button
+            variant="primary"
+            className="border border-gray-300 hover:shadow-none hover:bg-purple-500"
+          >
+            Login
+          </Button>
         </Link>
         <Link to="/getstarted">
-          <HandleButton variant="secondary">Log In</HandleButton>
+          <Button
+            variant="primary"
+            className="flex items-center border border-gray-300 gap-2 hover:gap-3 hover:shadow-none hover:bg-purple-500"
+          >
+            Get started <GoArrowRight className="text-2xl" />
+          </Button>
         </Link>
       </div>
     </nav>
