@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Button from "../components/ButtonComponents";
 import { GoArrowRight } from "react-icons/go";
 import AIReviewBox from "../Layouts/AiReviewBox";
-// import Cards from "../components/Cards";
+import Cards from "../components/Cards";
 
 // For Code Review Dialog Box
 const codeExmple = `
@@ -90,42 +90,47 @@ const Home = () => {
       </Link>
       <AIReviewBox
         filename="code-example.js"
-        
         code={codeExmple}
         issues={issues}
       />
       <div className="flex flex-col items-center justify-center space-y-2 mt-10">
-        <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-          How it works
+        <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+          Powerful Features
         </h2>
-        <div className="flex flex-row items-center justify-center max-w-[700px] space-x-5 text-muted-foreground md:text-xl text-white">
-          {" "}
-          <div>
-            <p className="text-white">
-              CodeScribe uses advanced AI algorithms to analyze your code and
-              provide instant feedback. It identifies potential bugs, suggests
-              improvements, and helps you write cleaner, more efficient code.
-            </p>
-          </div>
-          <div>
-            <p className="text-white">
-              With CodeScribe, you can focus on what matters most: building
-              great software. Let us handle the code reviews and bug detection
-              for you.
-            </p>
-          </div>
-        </div>
-
-        {/* <p className="text-white">
-          CodeScribe uses advanced AI algorithms to analyze your code and
-          provide instant feedback. It identifies potential bugs, suggests
-          improvements, and helps you write cleaner, more efficient code.
+        <p className="text-muted-foreground max-w-2xl mx-auto flex flex-col justify-center items-center">
+          Our AI-powered code review platform provides comprehensive analysis to
+          <span></span>
+          help you write better, safer code.
         </p>
-        <br />
-        <p className="text-white">
-          With CodeScribe, you can focus on what matters most: building great
-          software. Let us handle the code reviews and bug detection for you.
-        </p> */}
+        <div className="grid grid-cols-1 md:w-full w-[700px]  md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <Cards
+            title="Bug Detection"
+            content="Advanced AI algorithms identify potential bugs and logic errors in your code before they cause problems."
+          />
+          <Cards
+            title="Security Analysis"
+            content="Detect security vulnerabilities and potential exploits with our comprehensive security scanning."
+          />
+          <Cards
+            title="Performance Optimization"
+            content="Get suggestions to improve your code's performance and efficiency based on best practices."
+          />
+        </div>
+        <div></div>
+        <div className=" grid grid-cols-1 md:grid-cols-2 md:w-full w-[700px] lg:grid-cols-3 gap-5 ">
+          <Cards
+            title="Code Quality"
+            content="Receive insights on code structure, readability, and maintainability to enhance overall quality."
+          />
+          <Cards
+            title="AI-Powered Suggestions"
+            content="Smart recommendations to fix issues with code samples tailored to your project's context."
+          />
+          <Cards
+            title="Multi-Language Support"
+            content="Works with multiple programming languages including JavaScript, Python, Java, C#, and more."
+          />
+        </div>
       </div>
     </div>
   );
