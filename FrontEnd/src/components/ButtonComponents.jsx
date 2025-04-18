@@ -1,12 +1,12 @@
-import React from "react";
-
-const HandleButton = ({ className = "", childern, ...props }) => {
+const HandleButton = ({ children, color, ...props }) => {
   return (
     <button
-      className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300 ease-in-out cursor-pointer"
+      className={`px-4 py-2 rounded text-white ${
+        color === "blue" ? "bg-blue-500 hover:bg-blue-600" : ""
+      } ${color === "green" ? "bg-green-500 hover:bg-green-600" : ""}`}
       {...props}
     >
-      {childern}
+      {children}
     </button>
   );
 };

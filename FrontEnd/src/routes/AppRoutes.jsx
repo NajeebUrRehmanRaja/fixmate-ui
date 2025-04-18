@@ -17,11 +17,12 @@ const AppRoutes = () => {
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="report" element={<Report />} />
-        <Route path="login" element={<LogIn />} />
-        <Route path="signup" element={<SignUp />} />
         <Route path="getstarted" element={<GetStarted />} />
       </Route>
+
       {/* Route without navbar */}
+      <Route path="login" element={<LogIn />} />
+      <Route path="signup" element={<SignUp />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
