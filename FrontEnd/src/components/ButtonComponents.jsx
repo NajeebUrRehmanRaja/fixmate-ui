@@ -1,12 +1,29 @@
-const HandleButton = ({ children, color, ...props }) => {
+import React from "react";
+import clsx from "clsx";
+
+const HandleButton = ({ type = "button", variant = 'primary', className = "", childern, ...props }) => {
+   const baseStyles = "px-4 py-2 rounded-md font-semibold text-sm transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500";
+    const variantStyles = {
+      primary: "bg-blue-500 text-white hover:bg-blue-600",
+      secondary: "bg-gray-500 text-white hover:bg-gray-600",
+      danger: "bg-red-500 text-white hover:bg-red-600",
+    }
+
+    const disabledStyles = disabled ? "opacity-50 cursor-not-allowed" : "";
   return (
+   
     <button
-      className={`px-4 py-2 rounded text-white cursor-pointer ${
-        color === "blue" ? "bg-blue-500 hover:bg-blue-600" : ""
-      } ${color === "green" ? "bg-green-500 hover:bg-green-600" : ""}`}
+      type="{type}"
+      className={clsx(
+        baseStyles,
+        variantStyles[variant],
+        disabledStyles,
+        className
+      )}
       {...props}
+      disabled={props.disabled}
     >
-      {children}
+      {childern}
     </button>
   );
 };
