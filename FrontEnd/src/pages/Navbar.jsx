@@ -1,80 +1,66 @@
-import React from 'react'
+import React from "react";
+import { NavLink, Link } from "react-router-dom";
+import HandleButton from "../components/ButtonComponents";
+import { MdOutlineMenuOpen, MdMenu, MdClose } from "react-icons/md"; // Import icons
+import { useState } from "react";
+
+// Utility function to handle active/inactive link styles
+const getNavLinkClass = ({ isActive }) =>
+  isActive
+    ? "text-blue-700 underline underline-offset-5 transition duration-300 "
+    : "text-gray-500 hover:text-blue-700";
 
 const Navbar = () => {
-  return (
-    <div className="navbar bg-base-100 shadow-sm">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
-            </svg>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
-          </ul>
-        </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
-      </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <a>Item 1</a>
-          </li>
-          <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details>
-          </li>
-          <li>
-            <a>Item 3</a>
-          </li>
-        </ul>
-      </div>
-      <div className="navbar-end">
-        <a className="btn">Button</a>
-      </div>
-    </div>
-  );
-}
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-export default Navbar
+  return (
+    <nav className="flex justify-between items-center bg-white p-4 fixed w-full shadow-md z-10">
+      <div>
+        <NavLink to="/" className="text-3xl font-bold text-blue-600">
+          FixMate
+        </NavLink>
+      </div>
+      <div className="md:hidden">
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="text-gray-800 focus:outline-none"
+        >
+          {isMenuOpen ? <MdClose size={24} /> : <MdMenu size={24} />}
+        </button>
+      </div>
+      <div className={`${isMenuOpen ? "block" : "hidden"} md:flex space-x-4`}>
+        <NavLink to="/" className={getNavLinkClass}>
+          Home
+        </NavLink>
+        <NavLink to="/about" className={getNavLinkClass}>
+          About
+        </NavLink>
+        <NavLink to="/report" className={getNavLinkClass}>
+          Reports
+        </NavLink>
+      </div>
+      <div className="flex space-x-4">
+        <Link to="/login">
+          <HandleButton
+            childern={"Login"}
+            color="blue"
+            onClick={() => {
+              path = "/login";
+            }}
+          />
+        </Link>
+        <Link to="/getstarted">
+          <HandleButton
+            childern={"Get Started"}
+            color="red"
+            onClick={() => {
+              path = "/getstarted";
+            }}
+          />
+        </Link>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

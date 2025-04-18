@@ -1,9 +1,7 @@
 import React from 'react'
 
 const Report = () => {
-  return (
-    <div>Report Page</div>
-  )
+  return <div className="pt-20">Report Page</div>;
 }
 
 export default Report

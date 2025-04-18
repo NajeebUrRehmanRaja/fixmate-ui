@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import LogIn from "../pages/LogIn";
 import SignUp from "../pages/SignUp";
@@ -9,29 +9,21 @@ import NotFound from "../pages/NotFound";
 import GetStarted from "../pages/GetStarted";
 import NavbarLayout from "../Layouts/NavbarLayout";
 
-
 const AppRoutes = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" router={<NavbarLayout />}>
-          <Route index element={<Home />} />
-          {/* <Route path="login" element={<LogIn />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="about" element={<About />} /> */}
-          <Route path="report" element={<Report />} />
-          <Route path="getstarted" element={<GetStarted />} />
-        </Route>
-      </Routes>
-
-      {/* <Route path="/" element={<RootLayout />}>
-        <Route index element={<HomePage />} />
-
-        <Route path="about" element={<AboutPage />} />
+    <Routes>
+      {/* All routes with navbar */}
+      <Route path="/" element={<NavbarLayout />}>
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="report" element={<Report />} />
+        <Route path="login" element={<LogIn />} />
+        <Route path="signup" element={<SignUp />} />
+        <Route path="getstarted" element={<GetStarted />} />
       </Route>
-
-      <Route path="*" element={<NotFound />} /> */}
-    </BrowserRouter>
+      {/* Route without navbar */}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 };
 
