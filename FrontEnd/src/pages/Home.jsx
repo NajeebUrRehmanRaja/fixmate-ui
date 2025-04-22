@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "../components/ButtonComponents";
 import { GoArrowRight } from "react-icons/go";
+import { Bug, Shield, Zap, Code, Check, Sparkles } from "lucide-react";
 import AIReviewBox from "../Layouts/AiReviewBox";
 import Cards from "../components/Cards";
 
@@ -94,24 +95,27 @@ const Home = () => {
         issues={issues}
       />
       <div className="flex flex-col items-center justify-center space-y-2 mt-10">
-        <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+        <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-500 mt-5 bg-clip-text text-transparent">
           Powerful Features
         </h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto flex flex-col justify-center items-center">
+        <p className="text-muted-foreground max-w-2xl mb-15 mx-auto flex flex-col justify-center items-center">
           Our AI-powered code review platform provides comprehensive analysis to
           <span></span>
           help you write better, safer code.
         </p>
-        <div className="grid grid-cols-1 md:w-full w-[700px]  md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:w-full w-[700px] md:grid-cols-2 lg:grid-cols-3 gap-5">
           <Cards
+            icon={<Bug className="h-10 w-20 text-red-500 " />}
             title="Bug Detection"
             content="Advanced AI algorithms identify potential bugs and logic errors in your code before they cause problems."
           />
           <Cards
+            icon={<Shield className="h-10 w-10 text-yellow-500" />}
             title="Security Analysis"
             content="Detect security vulnerabilities and potential exploits with our comprehensive security scanning."
           />
           <Cards
+            icon={<Zap className="h-10 w-10 text-blue-500" />}
             title="Performance Optimization"
             content="Get suggestions to improve your code's performance and efficiency based on best practices."
           />
@@ -119,14 +123,17 @@ const Home = () => {
         <div></div>
         <div className=" grid grid-cols-1 md:grid-cols-2 md:w-full w-[700px] lg:grid-cols-3 gap-5 ">
           <Cards
+            icon={<Check className="h-10 w-10 text-green-500" />}
             title="Code Quality"
             content="Receive insights on code structure, readability, and maintainability to enhance overall quality."
           />
           <Cards
+            icon={<Sparkles className="h-10 w-10 text-purple-500" />}
             title="AI-Powered Suggestions"
             content="Smart recommendations to fix issues with code samples tailored to your project's context."
           />
           <Cards
+            icon={<Code className="h-10 w-10 text-indigo-500" />}
             title="Multi-Language Support"
             content="Works with multiple programming languages including JavaScript, Python, Java, C#, and more."
           />
