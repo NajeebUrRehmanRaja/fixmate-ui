@@ -105,7 +105,7 @@ const Home = () => {
         </p>
         <div className="grid grid-cols-1 md:w-full w-[700px] md:grid-cols-2 lg:grid-cols-3 gap-5">
           <Cards
-            icon={<Bug className="h-10 w-20 text-red-500 " />}
+            icon={<Bug className="h-10 w-10 text-red-500" />}
             title="Bug Detection"
             content="Advanced AI algorithms identify potential bugs and logic errors in your code before they cause problems."
           />

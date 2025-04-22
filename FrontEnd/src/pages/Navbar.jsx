@@ -27,7 +27,7 @@ const Navbar = () => {
       <div className="md:hidden">
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="text-white focus:outline-none"
+          className="text-white flex  focus:outline-none cursor-pointer"
         >
           {isMenuOpen ? <MdClose size={24} /> : <MdMenu size={24} />}
         </button>
@@ -37,7 +37,7 @@ const Navbar = () => {
       <div
         className={`${
           isMenuOpen ? "block" : "hidden"
-        } md:flex space-x-5 text-lg absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent shadow-md md:shadow-none`}
+        } md:flex space-x-5 text-lg absolute md:static top-16 left-0 w-full md:w-auto bg-gray-500 md:bg-transparent shadow-md md:shadow-none`}
       >
         <NavLink to="/" className={getNavLinkClass}>
           Home
