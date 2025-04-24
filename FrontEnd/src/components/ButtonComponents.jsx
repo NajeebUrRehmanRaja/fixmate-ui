@@ -8,7 +8,6 @@ const Button = ({
   onClick,
   disabled = false,
   className = "",
-  Icon,
 }) => {
   let variantStyles = "";
 
@@ -34,7 +33,6 @@ const Button = ({
 
   return (
     <button
-      Icon={Icon}
       type={type}
       onClick={onClick}
       disabled={disabled}
