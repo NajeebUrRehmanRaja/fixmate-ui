@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../components/ButtonComponents";
-// import Link from "react-router-dom"
+import { NavLink } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { Eye, EyeClosed } from "lucide-react";
 import { GoArrowRight } from "react-icons/go";
 
 const LogIn = () => {
+
+  const [showPassword, setShowPassword] = useState(false); 
+
+  const togglePassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="inline-flex items-center border-2 border-blue-500 rounded-2xl p-5 gap-10">
-        <div className="">
+        <div>
           <h1 className="text-2xl">Login/Signup</h1>
-          <div className=" flex flex-row justify-center items-center space-x-4 gap-10 mt-5 mb-5">
+          <div className="flex flex-row justify-center items-center space-x-4 gap-10 mt-5 mb-5">
             <Button className="hover:shadow-none hover:bg-gray-700 flex flex-row justify-center items-center gap-2">
               <FcGoogle className="text-2xl" />
               Login with Google
@@ -21,34 +29,54 @@ const LogIn = () => {
               Login with Github
             </Button>
           </div>
+
           <div className="flex flex-col space-y-2">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              placeholder="Email"
-              onFocus=""
-              className="bg-gray-500 p-2 rounded-md min-h-13
-            focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              placeholder="Password"
-              className="bg-gray-500 p-2 rounded-md min-h-13  focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+            <div className="flex flex-col">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                placeholder="Enter Email"
+                className="bg-gray-700 focus:bg-transparent border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none  "
+              />
+            </div>
+
+            <div className="flex flex-col relative">
+              <label htmlFor="password">Password</label>
+
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter Password"
+                className="bg-gray-700 focus:bg-transparent border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none  "
+              />
+
+              <div
+                className="absolute right-3 top-10 cursor-pointer"
+                onClick={togglePassword}
+              >
+                {showPassword ? <Eye size={20} /> : <EyeClosed size={20} />}
+              </div>
+            </div>
           </div>
+
           <div className="flex flex-col justify-center items-end gap-2 py-5">
-            <Button className="hover:bg-gray-700 hover:shadow-none flex items-center gap-2 ">
+            <Button className="hover:bg-gray-700 hover:shadow-none flex items-center gap-2">
               Login
               <GoArrowRight className="text-xl" />
             </Button>
           </div>
-          <p>Create Account?</p>
+
+          <p>
+            Create Account?
+            <NavLink to="/SignUp" className="hover:underline">
+              Signup
+            </NavLink>
+          </p>
         </div>
+
         <div>
           <img
             src="../../public/assets/login-pic.png"
-            alt="PIc"
+            alt="Pic"
             className="md:w-120 h-100 md:rounded-2xl hidden md:block"
           />
         </div>
