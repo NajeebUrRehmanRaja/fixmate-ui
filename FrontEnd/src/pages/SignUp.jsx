@@ -78,6 +78,11 @@ const LogIn = () => {
               <GoArrowRight className="text-xl" />
             </Button>
           </div>
+          <div className="flex gap-1">
+            <p>Already have account?</p> <NavLink to="/Login" className="hover:underline">
+              Login
+            </NavLink>
+          </div>
         </div>
 
         <div>

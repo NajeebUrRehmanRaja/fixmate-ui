@@ -64,13 +64,14 @@ const LogIn = () => {
               <GoArrowRight className="text-xl" />
             </Button>
           </div>
-
-          <p>
-            Create Account?
-            <NavLink to="/SignUp" className="hover:underline">
-              Signup
-            </NavLink>
-          </p>
+          <div>
+            <p>
+              Create new account.
+              <NavLink to="/SignUp" className="hover:underline pl-1">
+                Signup
+              </NavLink>
+            </p>
+          </div>
         </div>
 
         <div>
