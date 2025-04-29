@@ -105,7 +105,7 @@ const Home = () => {
           <span></span>
           help you write better, safer code.
         </p>
-        <div className="grid grid-cols-1 w-[450px] md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 w-[450px] md:w-full md:grid-cols-3 lg:grid-cols-3 gap-5">
           <Cards
             icon={<Bug className="h-10 w-10 text-red-500" />}
             title="Bug Detection"
@@ -123,7 +123,7 @@ const Home = () => {
           />
         </div>
         <div></div>
-        <div className=" grid grid-cols-1 md:grid-cols-2 w-[450px] lg:grid-cols-3 gap-5 ">
+        <div className="grid grid-cols-1 md:grid-cols-3 w-[450px] md:w-full lg:grid-cols3 gap-5 ">
           <Cards
             icon={<Check className="h-10 w-10 text-green-500" />}
             title="Code Quality"
