@@ -75,11 +75,13 @@ const Home = () => {
           </span>
         </h1>
       </div>
-      <p className="mx-auto flex flex-col justify-center items-center max-w-[700px] text-muted-foreground md:text-xl text-gray-400">
-        CodeScribe helps developers write better code with instant automated{" "}
-        <span></span>
-        code reviews, bug detection, and smart suggestions.
-      </p>
+      <div className="text-muted-foreground md:text-xl text-gray-400 text-center">
+        <p className="md:flex md:flex-col">
+          CodeScribe helps developers write better code with instant automated{" "}
+          <span></span>
+          code reviews, bug detection, and smart suggestions.
+        </p>
+      </div>
       <Link to={"/getstarted"}>
         <Button
           variant="primary"
