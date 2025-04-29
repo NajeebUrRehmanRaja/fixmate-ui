@@ -27,7 +27,7 @@ const Button = ({
       break;
   }
 
-  const baseStyles = `px-4 py-2 rounded-lg font-semibold transition duration-200 ${variantStyles} ${
+  const baseStyles = `px-2 py-2 rounded-lg font-semibold transition duration-200 ${variantStyles} ${
     disabled ? "opacity-50 cursor-not-allowed" : ""
   } ${className}`;
 

@@ -19,7 +19,6 @@ const AppRoutes = () => {
         <Route path="about" element={<About />} />
         <Route path="report" element={<Report />} />
         <Route path="getstarted" element={<GetStarted />} />
-        <Route path="footer" element={<Footer />} />
       </Route>
 
       {/* Route without navbar */}

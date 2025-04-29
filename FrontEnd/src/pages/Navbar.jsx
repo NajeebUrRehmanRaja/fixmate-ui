@@ -19,7 +19,7 @@ const Navbar = () => {
       <Container className="flex justify-between items-center bg-gradient-to-r from-blue-500 to-purple-500 p-4 fixed h-15 w-full shadow-md z-10">
         {/* Logo */}
         <div>
-          <NavLink to="/" className="text-3xl font-bold text-white">
+          <NavLink to="/" className="text-2xl font-bold text-white">
             FixMate
           </NavLink>
         </div>
@@ -53,7 +53,7 @@ const Navbar = () => {
           <Link to="/login">
             <Button
               variant="primary"
-              className="border border-gray-300 hover:shadow-none hover:bg-purple-500"
+              className="border border-gray-300 hover:shadow-none hover:bg-purple-500 "
             >
               Login
             </Button>
