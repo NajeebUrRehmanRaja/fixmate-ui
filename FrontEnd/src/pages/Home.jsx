@@ -100,11 +100,14 @@ const Home = () => {
         <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-500 mt-5 bg-clip-text text-transparent">
           Powerful Features
         </h2>
-        <p className="text-muted-foreground max-w-2xl mb-15 mx-auto flex flex-col justify-center items-center">
-          Our AI-powered code review platform provides comprehensive analysis to
-          <span></span>
-          help you write better, safer code.
-        </p>
+        <div className="text-muted-foreground md:text-xl text-gray-400 text-center">
+          <p className="md:flex md:flex-col mb-5">
+            Our AI-powered code review platform provides comprehensive analysis
+            to
+            <span></span>
+            help you write better, safer code.
+          </p>
+        </div>
         <div className="grid grid-cols-1 w-[450px] md:w-full md:grid-cols-3 lg:grid-cols-3 gap-5">
           <Cards
             icon={<Bug className="h-10 w-10 text-red-500" />}
