@@ -16,7 +16,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      <Container className="flex justify-between items-center bg-gradient-to-r from-blue-500 to-purple-500 p-4 fixed w-full shadow-md z-10">
+      <Container className="flex justify-between items-center bg-gradient-to-r from-blue-500 to-purple-500 p-4 fixed h-15 w-full shadow-md z-10">
         {/* Logo */}
         <div>
           <NavLink to="/" className="text-3xl font-bold text-white">
@@ -38,7 +38,7 @@ const Navbar = () => {
         <div
           className={`${
             isMenuOpen ? "block" : "hidden"
-          } md:flex space-x-5 text-lg absolute md:static top-16 left-0 w-full md:w-auto bg-gray-500 md:bg-transparent shadow-md md:shadow-none`}
+          } md:flex space-x-5 text-lg absolute md:static top-15 p-3 left-0 w-full md:w-auto bg-purple-500 md:bg-transparent shadow-md md:shadow-none`}
         >
           <NavLink to="/" className={getNavLinkClass}>
             Home
