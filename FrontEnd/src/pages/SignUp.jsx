@@ -15,10 +15,10 @@ const LogIn = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="inline-flex items-center border-2 border-blue-500 rounded-2xl p-5 gap-10">
+      <div className="inline-flex items-center border-2 border-blue-500 rounded-2xl p-3 md:p-5 md:gap-10">
         <div>
           <h1 className="text-2xl">Login/Signup</h1>
-          <div className="flex flex-row justify-center items-center space-x-4 gap-10 mt-5 mb-5">
+          <div className="flex flex-row justify-center items-center space-x-4 md:gap-10 mt-5 mb-5">
             <Button className="hover:shadow-none hover:bg-gray-700 flex flex-row justify-center items-center gap-2">
               <FcGoogle className="text-2xl" />
               Login with Google
