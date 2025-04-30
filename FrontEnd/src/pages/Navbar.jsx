@@ -8,7 +8,7 @@ import Container from "../components/Container";
 // Utility function to handle active/inactive link styles
 const getNavLinkClass = ({ isActive }) =>
   isActive
-    ? "text-blue-900 font-bold underline underline-offset-5 transition duration-300 "
+    ? " font-bold underline underline-offset-5 transition duration-300 "
     : "text-white hover:text-gray-300 transition duration-300";
 
 const Navbar = () => {
@@ -61,7 +61,7 @@ const Navbar = () => {
           <Link to="/getstarted">
             <Button
               variant="primary"
-              className="flex items-center border border-gray-300 gap-2 hover:gap-3 hover:shadow-none hover:bg-purple-500"
+              className="flex items-center border border-gray-300 gap-2 hover:shadow-none hover:bg-purple-500"
             >
               Get started <GoArrowRight className="text-2xl" />
             </Button>

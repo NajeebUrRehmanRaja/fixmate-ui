@@ -19,11 +19,11 @@ const LogIn = () => {
         <div>
           <h1 className="text-2xl">Login/Signup</h1>
           <div className="flex flex-row justify-center items-center space-x-4 md:gap-10 mt-5 mb-5">
-            <Button className="hover:shadow-none hover:bg-gray-700 flex flex-row justify-center items-center gap-2">
+            <Button className="hover:shadow-none hover:bg-gray-800 flex flex-row justify-center items-center gap-2">
               <FcGoogle className="text-2xl" />
               Login with Google
             </Button>
-            <Button className="hover:shadow-none hover:bg-gray-700 flex flex-row justify-center items-center gap-2">
+            <Button className="hover:shadow-none hover:bg-gray-800 flex flex-row justify-center items-center gap-2">
               <FaGithub className="text-2xl" />
               Login with Github
             </Button>
@@ -73,7 +73,7 @@ const LogIn = () => {
             </div>
           </div>
           <div className="flex flex-col justify-center items-end gap-2 py-5">
-            <Button className="hover:bg-gray-700 hover:shadow-none flex items-center gap-2">
+            <Button className="hover:bg-gray-800 hover:shadow-none flex items-center gap-2">
               Signup
               <GoArrowRight className="text-xl" />
             </Button>

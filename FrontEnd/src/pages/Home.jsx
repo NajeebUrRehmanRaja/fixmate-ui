@@ -6,6 +6,7 @@ import { Bug, Shield, Zap, Code, Check, Sparkles } from "lucide-react";
 import AIReviewBox from "../Layouts/AiReviewBox";
 import Cards from "../components/Cards";
 import Container from "../components/Container"
+import Footer from "../pages/Footer"
 
 // For Code Review Dialog Box
 const codeExmple = `
@@ -64,9 +65,9 @@ const issues = [
 
 const Home = () => {
   return (
-    <div className="flex flex-col items-center justify-center pt-50 ">
+    <Container className="flex flex-col items-center justify-center pt-50 ">
       <div className="flex flex-col items-center justify-center space-y-2 ">
-        <h6 className="px-3 py-1 border rounded-full">
+        <h6 className="px-2 py-1 border rounded-full text-[12px]">
           New Feature: Multi-language Support
         </h6>
         <h1 className="text-3xl flex flex-col justify-center items-center font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
@@ -86,19 +87,19 @@ const Home = () => {
       <Link to={"/getstarted"}>
         <Button
           variant="primary"
-          className="mt-4 flex flex-row items-center gap-2 hover:gap-3"
+          className="mt-4 flex flex-row items-center gap-2 hover:shadow-none hover:bg-gray-800"
         >
           Try it for free
           <GoArrowRight className="text-2xl " />
         </Button>
       </Link>
-      <Container className="flex justify-center w-full ">
+      <div className="flex justify-center w-full ">
         <AIReviewBox
           filename="code-example.js"
           code={codeExmple}
           issues={issues}
         />
-      </Container>
+      </div>
       <div className="flex flex-col items-center justify-center space-y-2 mt-10">
         <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-500 mt-5 bg-clip-text text-transparent">
           Powerful Features
@@ -111,7 +112,7 @@ const Home = () => {
             help you write better, safer code.
           </p>
         </div>
-        <Container className="grid grid-cols-1 w-[450px] md:w-full md:grid-cols-3 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 w-[450px] md:w-full md:grid-cols-3 lg:grid-cols-3 gap-5">
           <Cards
             icon={<Bug className="h-10 w-10 text-red-500" />}
             title="Bug Detection"
@@ -127,9 +128,9 @@ const Home = () => {
             title="Performance Optimization"
             content="Get suggestions to improve your code's performance and efficiency based on best practices."
           />
-        </Container>
+        </div>
         <div></div>
-        <Container className="grid grid-cols-1 md:grid-cols-3 w-[450px] md:w-full lg:grid-cols3 gap-5 ">
+        <div className="grid grid-cols-1 md:grid-cols-3 w-[450px] md:w-full lg:grid-cols3 gap-5 ">
           <Cards
             icon={<Check className="h-10 w-10 text-green-500" />}
             title="Code Quality"
@@ -145,9 +146,10 @@ const Home = () => {
             title="Multi-Language Support"
             content="Works with multiple programming languages including JavaScript, Python, Java, C#, and more."
           />
-        </Container>
+        </div>
       </div>
-    </div>
+      <Footer/>
+    </Container>
   );
 };
 
