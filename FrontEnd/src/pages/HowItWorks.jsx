@@ -33,60 +33,91 @@ const HowItWorks = () => {
           content="Apply suggested fixes automatically, or manually implement the recommendations to improve your code quality."
         />
       </div>
-      <div className="mt-5 rounded flex flex-col md:flex-row justify-center items-start max-w-6xl mx-auto bg-gray-400 p-4 gap-5">
-        {/* Code Preview Section */}
-        <div className="w-full md:w-1/2 h-[250px] md:h-[300px] overflow-x-auto bg-black rounded-md p-3">
-          <pre className="text-green-300 text-sm md:text-base">
-            <code>
-              {`function calculateTotal(items) {
-  let total = 0;
-  for (let i = 0; i <= items.length; i++) { // Bug: <= should be <
-    total += items[i].price; // Potential error: items[i] might be undefined
-  }
-  return total;
-}`}
-            </code>
-          </pre>
-        </div>
-
-        {/* Bug Details Section */}
-        <div className="w-full md:w-1/2 bg-black rounded-md p-4 space-y-4">
-          {/* Critical Bug */}
-          <div className="border-l-4 border-red-500 pl-3">
-            <h1 className="text-red-400 font-bold text-sm md:text-base">
-              Critical Bug: Out of bounds access
-            </h1>
-            <p className="text-red-300 text-xs md:text-sm mt-1">
-              Line 3: Using <code>&lt;=</code> instead of <code>&lt;</code> will
-              cause an out of bounds array access.
-            </p>
+      <div className="mt-5 text-center rounded p-4">
+        <div className="relative mx-auto max-w-5xl overflow-hidden rounded-xl bg-gray-800 border border-border shadow-lg">
+          <div className="bg-primary flex items-center p-2 text-xs text-muted-foreground">
+            <div className="flex space-x-1.5">
+              <div className="h-2.5 w-2.5 rounded-full bg-red-500"></div>
+              <div className="h-2.5 w-2.5 rounded-full bg-yellow-500"></div>
+              <div className="h-2.5 w-2.5 rounded-full bg-green-500"></div>
+            </div>
+            <div className="mx-auto text-center text-xs">Demo</div>
           </div>
-
-          {/* Security Warning */}
-          <div className="border-l-4 border-yellow-400 pl-3">
-            <h1 className="text-yellow-400 font-bold text-sm md:text-base">
-              Security Warning: Potential crash
-            </h1>
-            <p className="text-yellow-300 text-xs md:text-sm mt-1">
-              Line 4: No null check before accessing <code>.price</code>{" "}
-              property.
-            </p>
-          </div>
-
-          {/* Suggested Fix */}
-          <div className="border-l-4 border-green-400 pl-3">
-            <h1 className="text-green-400 font-bold text-sm md:text-base">
-              Suggested fix:
-            </h1>
-            <pre className="text-green-300 text-xs md:text-sm mt-1 overflow-x-auto">
-              <code>
-                {`for (let i = 0; i < items.length; i++) {
-  if (items[i]) {
-    total += items[i].price || 0;
-  }
-}`}
-              </code>
-            </pre>
+          <div className="grid grid-cols-1 md:grid-cols-2 bg-code">
+            <div className="p-4 border-r border-border">
+              <pre className="text-xs md:text-sm text-code-foreground">
+                <code>
+                  <span className="text-purple-400">function</span>{" "}
+                  <span className="text-blue-600">calculateTotal</span>(items){" "}
+                  {"{"}
+                  <br />
+                  {"  "}
+                  <span className="text-purple-400">let</span>{" "}
+                  <span className="text-pink-500">total</span> ={" "}
+                  <span className="text-sky-500">0</span>;
+                  <br />
+                  {"  "}
+                  <span className="text-purple-400">for</span> (
+                  <span className="text-purple-400">let</span>{" "}
+                  <span className="syntax-variable">i</span> ={" "}
+                  <span className="text-sky-500">0</span>; i &lt;= items.length;
+                  i++) {"{"}{" "}
+                  <span className="text-gray-500">
+                    <br />
+                    // Bug: &lt;= should be &lt;
+                  </span>
+                  <br />
+                  {"    "}total += items[i].price;{" "}
+                  <br />
+                  <span className="text-gray-500">
+                    // Potential error: items[i] might be undefined
+                  </span>
+                  <br />
+                  {"  "}
+                  {"}"}
+                  <br />
+                  {"  "}
+                  <span className="text-purple-400">return</span> total;
+                  <br />
+                  {"}"}
+                  <br />
+                </code>
+              </pre>
+            </div>
+            <div className="p-4 bg-gray-800">
+              <div className="text-xs text-red-500 mb-4 border-l-2 border-red-500 pl-2">
+                <p className="font-semibold">
+                  Critical Bug: Out of bounds access
+                </p>
+                <p>
+                  Line 3: Using &lt;= instead of &lt; will cause an out of
+                  bounds array access.
+                </p>
+              </div>
+              <div className="text-xs text-yellow-500 mb-4 border-l-2 border-yellow-500 pl-2">
+                <p className="font-semibold">
+                  Security Warning: Potential crash
+                </p>
+                <p>Line 4: No null check before accessing .price property.</p>
+              </div>
+              <div className="text-xs text-green-500 border-l-2 border-green-500 pl-2">
+                <p className="font-semibold">Suggested fix:</p>
+                <pre className="bg-green-500/10 p-2 rounded text-code-foreground">
+                  <code>
+                    for (let i = 0; i &lt; items.length; i++) {"{"}
+                    <br />
+                    {"  "}if (items[i]) {"{"}
+                    <br />
+                    {"    "}total += items[i].price || 0;
+                    <br />
+                    {"  "}
+                    {"}"}
+                    <br />
+                    {"}"}
+                  </code>
+                </pre>
+              </div>
+            </div>
           </div>
         </div>
       </div>
