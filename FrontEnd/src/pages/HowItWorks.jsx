@@ -4,12 +4,11 @@ import Cards from "../components/Cards";
 
 const HowItWorks = () => {
   return (
-    <Container className="mt-5 bg-purple-900 rounded p-5">
-      <div className="flex flex-col justify-center items-center">
-        <h1 className="text-2xl">How It Works</h1>
-        <p>
-          Get started in minutes and improve your code quality with our
-          AI-powered review process.
+    <Container className="mt-5 bg-purple-600 rounded p-5">
+      <div className="flex flex-col justify-center py-1 items-center">
+        <h1 className="text-2xl font-bold">How It Works</h1>
+        <p className="text-center">
+          Get started in minutes and improve your code quality with our AI-powered review process.
         </p>
       </div>
 
