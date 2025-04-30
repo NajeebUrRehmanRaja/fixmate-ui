@@ -7,6 +7,7 @@ import AIReviewBox from "../Layouts/AiReviewBox";
 import Cards from "../components/Cards";
 import Container from "../components/Container"
 import Footer from "../pages/Footer"
+import HowItWorks from "./HowItWorks";
 
 // For Code Review Dialog Box
 const codeExmple = `
@@ -148,6 +149,7 @@ const Home = () => {
           />
         </div>
       </div>
+      <HowItWorks />
       <Footer/>
     </Container>
   );
