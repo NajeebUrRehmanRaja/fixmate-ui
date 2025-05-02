@@ -4,6 +4,8 @@ import Button from "../components/ButtonComponents";
 import { MdMenu, MdClose } from "react-icons/md"; // Import icons
 import { GoArrowRight } from "react-icons/go";
 import Container from "../components/Container";
+import { Code } from "lucide-react";
+
 
 // Utility function to handle active/inactive link styles
 const getNavLinkClass = ({ isActive }) =>
@@ -18,7 +20,8 @@ const Navbar = () => {
     <nav>
       <Container className="flex justify-between items-center bg-gradient-to-r from-blue-500 to-purple-500 p-4 fixed h-15 w-full shadow-md z-10">
         {/* Logo */}
-        <div>
+        <div className="flex justify-center items-center gap-1">
+          <Code className="h-6 w-6 text-purple-500" />
           <NavLink to="/" className="text-2xl font-bold text-white">
             FixMate
           </NavLink>
