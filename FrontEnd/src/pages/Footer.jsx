@@ -16,7 +16,7 @@ const Footer = () => {
               to ship better code faster.
             </p>
             <div className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} CodeScribe. All rights reserved.
+              © {new Date().getFullYear()} FixMate. All rights reserved.
             </div>
           </div>
           <div>
