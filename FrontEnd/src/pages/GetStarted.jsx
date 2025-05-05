@@ -61,17 +61,19 @@ const CodeReviewPage = () => {
 
   const handleCopyAllFixes = () => {
     if (analysis) {
-      navigator.clipboard.writeText(analysis).then(() => {
-        console.log("Form submitted!");
-       setToastMessage("✅ Copied all fixes successfully!");
-       setShowToast(true);
-        setTimeout(() => {
-          setShowToast(false);
-        }, 3000);
-      })
-      .catch((err) =>{
-        console.error("Failed Copy:", err);
-      })
+      navigator.clipboard
+        .writeText(analysis)
+        .then(() => {
+          console.log("Form submitted!");
+          setToastMessage("✅ Copied all fixes successfully!");
+          setShowToast(true);
+          setTimeout(() => {
+            setShowToast(false);
+          }, 3000);
+        })
+        .catch((err) => {
+          console.error("Failed Copy:", err);
+        });
     }
   };
   const handleReviewCode = () => {

@@ -8,9 +8,56 @@ import { GoArrowRight } from "react-icons/go";
 
 const LogIn = () => {
   const [showPassword, setShowPassword] = useState(false);
-
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
+  };
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = {};
+
+    if (!formData.firstName.trim()) {
+      validationErrors.firstName = "First Name is Required!";
+    }
+    if (!formData.lastName.trim()) {
+      validationErrors.lastName = "Last Name is Required!";
+    }
+
+    if (!formData.email.trim()) {
+      validationErrors.email = "Email is Required!";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      validationErrors.email = "Email is not Valid!";
+    }
+
+    if (!formData.password.trim()) {
+      validationErrors.password = "Password is Required!";
+    } else if (formData.password.length < 6) {
+      validationErrors.password =
+        "Password must be at least 6 characters long!";
+    }
+
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
+      alert("Login Successful!");
+    }
   };
 
   return (
@@ -29,62 +76,107 @@ const LogIn = () => {
             </Button>
           </div>
 
-          <div className="md:flex md:flex-row md:space-y-2 md:space-x-15">
-            <div className="flex flex-col">
-              <label htmlFor="text">First Name</label>
-              <input
-                type="text"
-                placeholder="Enter First Name"
-                className="bg-gray-700 focus:bg-transparent border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none  "
-              />
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="text">First Name</label>
-              <input
-                type="text"
-                placeholder="Enter First Name"
-                className="bg-gray-700 focus:bg-transparent border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none  "
-              />
-            </div>
-          </div>
-          <div className="md:flex md:flex-row md:space-y-2 md:space-x-15">
-            <div className="flex flex-col">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                placeholder="Enter Email"
-                className="bg-gray-700 focus:bg-transparent border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none  "
-              />
-            </div>
-            <div className="flex flex-col relative">
-              <label htmlFor="password">Password</label>
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter Password"
-                className="bg-gray-700 focus:bg-transparent border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none  "
-              />
+          {/* Only One Form Here */}
+          <form
+            onSubmit={handleSubmit}
+            className="md:flex md:flex-col md:space-y-2"
+          >
+            <div className="md:flex md:flex-row md:gap-10">
+              {/* First Name */}
+              <div className="flex flex-col">
+                <label htmlFor="firstName">First Name</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  placeholder="Enter First Name"
+                  className="bg-gray-700 focus:bg-transparent border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none"
+                  onChange={handleChange}
+                  value={formData.firstName}
+                />
+                {errors.firstName && (
+                  <span className="text-red-500">{errors.firstName}</span>
+                )}
+              </div>
 
-              <div
-                className="absolute right-3 top-10 cursor-pointer"
-                onClick={togglePassword}
-              >
-                {showPassword ? <Eye size={20} /> : <EyeClosed size={20} />}
+              {/* Last Name */}
+              <div className="flex flex-col">
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  placeholder="Enter Last Name"
+                  className="bg-gray-700 focus:bg-transparent border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none"
+                  onChange={handleChange}
+                  value={formData.lastName}
+                />
+                {errors.lastName && (
+                  <span className="text-red-500">{errors.lastName}</span>
+                )}
               </div>
             </div>
-          </div>
-          <div className="flex flex-col justify-center items-end gap-2 py-5">
-            <Button className="hover:bg-gray-800 hover:shadow-none flex items-center gap-2">
-              Signup
-              <GoArrowRight className="text-xl" />
-            </Button>
-          </div>
+
+            <div className="md:flex md:flex-row md:gap-10">
+              {/* Email */}
+              <div className="flex flex-col">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter Email"
+                  className="bg-gray-700 focus:bg-transparent border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none"
+                  onChange={handleChange}
+                  value={formData.email}
+                />
+                {errors.email && (
+                  <span className="text-red-500">{errors.email}</span>
+                )}
+              </div>
+
+              {/* Password */}
+              <div className="flex flex-col relative">
+                <label htmlFor="password">Password</label>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Enter Password"
+                  className="bg-gray-700 focus:bg-transparent border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none"
+                  onChange={handleChange}
+                  value={formData.password}
+                />
+                {errors.password && (
+                  <span className="text-red-500">{errors.password}</span>
+                )}
+                <div
+                  className="absolute right-3 top-10 cursor-pointer"
+                  onClick={togglePassword}
+                >
+                  {showPassword ? <Eye size={20} /> : <EyeClosed size={20} />}
+                </div>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <div className="flex flex-col justify-center items-end gap-2 py-5">
+              <Button
+                type="submit"
+                className="hover:bg-gray-800 hover:shadow-none flex items-center gap-2"
+              >
+                Signup
+                <GoArrowRight className="text-xl" />
+              </Button>
+            </div>
+          </form>
+
+          {/* Link to Login */}
           <div className="flex gap-1">
-            <p>Already have account?</p> <NavLink to="/Login" className="hover:underline">
+            <p>Already have an account?</p>
+            <NavLink to="/Login" className="hover:underline">
               Login
             </NavLink>
           </div>
         </div>
 
+        {/* Image Section */}
         <div>
           <img
             src="../../public/assets/login-pic.png"
