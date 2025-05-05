@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Editor from "@monaco-editor/react";
+import { saveAs } from "file-saver";
 
 const tabs = ["All", "Bugs", "Security", "Performance", "Style"];
 
@@ -27,6 +28,9 @@ const results = [
 const CodeReviewPage = () => {
   const [activeTab, setActiveTab] = useState("All");
   const [activeEditorTab, setActiveEditorTab] = useState("Code Editor");
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
   const [code, setCode] = useState(
     `// Enter your code here\n\nfunction example() {\n  const x = 5;\n  console.log("This is a sample function");\n  return x;\n}`
   );
@@ -48,6 +52,28 @@ const CodeReviewPage = () => {
     }
   };
 
+  const handleExportReport = () => {
+    const analysis = "Your code analysis results go here!";
+
+    const blob = new Blob([analysis], { type: "text/plain;charset=utf-8" });
+    saveAs(blob, "code-analysis.txt");
+  };
+
+  const handleCopyAllFixes = () => {
+    if (analysis) {
+      navigator.clipboard.writeText(analysis).then(() => {
+        console.log("Form submitted!");
+       setToastMessage("✅ Copied all fixes successfully!");
+       setShowToast(true);
+        setTimeout(() => {
+          setShowToast(false);
+        }, 3000);
+      })
+      .catch((err) =>{
+        console.error("Failed Copy:", err);
+      })
+    }
+  };
   const handleReviewCode = () => {
     if (code.trim() !== "") {
       setIsReviewStarted(true);
@@ -184,12 +210,23 @@ const CodeReviewPage = () => {
             </div>
 
             <div className="flex gap-2 mt-4">
-              <button className="bg-gray-700 p-2 rounded hover:bg-gray-600 flex-1 cursor-pointer">
+              <button
+                className="bg-gray-700 p-2 rounded hover:bg-gray-600 flex-1 cursor-pointer"
+                onClick={handleExportReport}
+              >
                 Export Report
               </button>
-              <button className="bg-gray-700 p-2 rounded hover:bg-gray-600 flex-1 cursor-pointer">
+              <button
+                className="bg-gray-700 p-2 rounded hover:bg-gray-600 flex-1 cursor-pointer"
+                onClick={handleCopyAllFixes}
+              >
                 Copy All Fixes
               </button>
+              {showToast && (
+                <div className="fixed bottom-5 right-5 bg-green-500 text-white px-6 py-4 rounded shadow-lg transition-opacity duration-500">
+                  {toastMessage}
+                </div>
+              )}
               <button className="bg-blue-600 p-2 rounded hover:bg-blue-700 flex-1 cursor-pointer">
                 Fix Selected Issues
               </button>
