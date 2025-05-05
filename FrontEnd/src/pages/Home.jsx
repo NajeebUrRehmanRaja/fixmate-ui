@@ -150,7 +150,6 @@ const Home = () => {
         </div>
       </div>
       <HowItWorks />
-      <Footer/>
     </Container>
   );
 };
