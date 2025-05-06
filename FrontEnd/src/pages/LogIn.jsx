@@ -62,7 +62,7 @@ const LogIn = () => {
               Forgot Password?
             </NavLink>
           </div>
-          <div className="flex flex-col justify-center items-end gap-2 py-5">
+          <div className="flex flex-col justify-center items-end gap-2 ">
             <Button className="border-none flex items-center">
               Login
               <GoArrowRight className="text-xl pt-1" />
@@ -78,13 +78,6 @@ const LogIn = () => {
           </div>
         </div>
 
-        {/* <div>
-          <img
-            src="../../public/assets/Login-bg-pic.png"
-            alt="Pic"
-            className="md:w-120 h-100 md:rounded-2xl hidden md:block opacity-80"
-          />
-        </div> */}
       </div>
     </div>
   );

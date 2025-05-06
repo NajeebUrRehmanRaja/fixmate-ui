@@ -61,27 +61,23 @@ const LogIn = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="inline-flex items-center border-2 border-blue-500 rounded-2xl p-3 md:p-5 md:gap-10">
+    <div className="flex justify-center bg-gradient-to-r from-blue-600 to-purple-600 h-screen items-center">
+      <div className="p-4 rounded-md bg-gradient-to-r from-blue-700 to-purple-700">
         <div>
           <h1 className="text-2xl">Login/Signup</h1>
-          <div className="flex flex-row justify-center items-center space-x-4 md:gap-10 mt-5 mb-5">
-            <Button className="hover:shadow-none hover:bg-gray-800 flex flex-row justify-center items-center gap-2">
+          <div className="flex flex-row justify-center items-center space-x-4 md:gap-10 mt-5 mb-5 bg-gradient-to-r">
+            <Button className="border-none shadow-blue-300  flex flex-row justify-center items-center gap-2">
               <FcGoogle className="text-2xl" />
               Login with Google
             </Button>
-            <Button className="hover:shadow-none hover:bg-gray-800 flex flex-row justify-center items-center gap-2">
+            <Button className="shadow-blue-300 border-none flex flex-row justify-center items-center gap-2">
               <FaGithub className="text-2xl" />
               Login with Github
             </Button>
           </div>
 
-          {/* Only One Form Here */}
-          <form
-            onSubmit={handleSubmit}
-            className="md:flex md:flex-col md:space-y-2"
-          >
-            <div className="md:flex md:flex-row md:gap-10">
+          <form onSubmit={handleSubmit}>
+            <div className="">
               {/* First Name */}
               <div className="flex flex-col">
                 <label htmlFor="firstName">First Name</label>
@@ -89,12 +85,14 @@ const LogIn = () => {
                   type="text"
                   name="firstName"
                   placeholder="Enter First Name"
-                  className="bg-gray-700 focus:bg-transparent border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none"
+                  className="border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none focus:border-b-2 focus:bg-blue-600 "
                   onChange={handleChange}
                   value={formData.firstName}
                 />
                 {errors.firstName && (
-                  <span className="text-red-500">{errors.firstName}</span>
+                  <span className="text-red-400 text-[12px]">
+                    {errors.firstName}
+                  </span>
                 )}
               </div>
 
@@ -105,17 +103,16 @@ const LogIn = () => {
                   type="text"
                   name="lastName"
                   placeholder="Enter Last Name"
-                  className="bg-gray-700 focus:bg-transparent border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none"
+                  className="border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none focus:border-b-2 focus:bg-blue-600 "
                   onChange={handleChange}
                   value={formData.lastName}
                 />
                 {errors.lastName && (
-                  <span className="text-red-500">{errors.lastName}</span>
+                  <span className="text-red-400 text-[12px]">
+                    {errors.lastName}
+                  </span>
                 )}
               </div>
-            </div>
-
-            <div className="md:flex md:flex-row md:gap-10">
               {/* Email */}
               <div className="flex flex-col">
                 <label htmlFor="email">Email</label>
@@ -123,12 +120,14 @@ const LogIn = () => {
                   type="email"
                   name="email"
                   placeholder="Enter Email"
-                  className="bg-gray-700 focus:bg-transparent border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none"
+                  className="border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none focus:border-b-2 focus:bg-blue-600 "
                   onChange={handleChange}
                   value={formData.email}
                 />
                 {errors.email && (
-                  <span className="text-red-500">{errors.email}</span>
+                  <span className="text-red-400 text-[12px]">
+                    {errors.email}
+                  </span>
                 )}
               </div>
 
@@ -139,12 +138,14 @@ const LogIn = () => {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Enter Password"
-                  className="bg-gray-700 focus:bg-transparent border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none"
+                  className="border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none focus:border-b-2 focus:bg-blue-600 "
                   onChange={handleChange}
                   value={formData.password}
                 />
                 {errors.password && (
-                  <span className="text-red-500">{errors.password}</span>
+                  <span className="text-red-400 text-[12px]">
+                    {errors.password}
+                  </span>
                 )}
                 <div
                   className="absolute right-3 top-10 cursor-pointer"
@@ -154,35 +155,20 @@ const LogIn = () => {
                 </div>
               </div>
             </div>
-
             {/* Submit Button */}
-            <div className="flex flex-col justify-center items-end gap-2 py-5">
-              <Button
-                type="submit"
-                className="hover:bg-gray-800 hover:shadow-none flex items-center gap-2"
-              >
+            <div className="flex flex-col justify-center items-end gap-2 p-2">
+              <Button type="submit" className="border-none flex items-center">
                 Signup
-                <GoArrowRight className="text-xl" />
+                <GoArrowRight className="text-xl pt-1" />
               </Button>
             </div>
+            <div className="flex -mt-3 gap-1 text-[12px]">
+              <p>Already have an account?</p>{" "}
+              <NavLink to="/Login" className="hover:underline">
+                Login
+              </NavLink>
+            </div>
           </form>
-
-          {/* Link to Login */}
-          <div className="flex gap-1">
-            <p>Already have an account?</p>
-            <NavLink to="/Login" className="hover:underline">
-              Login
-            </NavLink>
-          </div>
-        </div>
-
-        {/* Image Section */}
-        <div>
-          <img
-            src="../../public/assets/login-pic.png"
-            alt="Pic"
-            className="md:w-120 h-100 md:rounded-2xl hidden md:block"
-          />
         </div>
       </div>
     </div>
