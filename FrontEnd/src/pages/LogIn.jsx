@@ -7,24 +7,23 @@ import { Eye, EyeClosed } from "lucide-react";
 import { GoArrowRight } from "react-icons/go";
 
 const LogIn = () => {
-
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
 
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
   };
 
   return (
-    <div className="flex justify-center mt-16">
-      <div className="inline-flex items-center border-2 border-blue-500 rounded-2xl p-5 md:gap-10">
+    <div className="flex justify-center bg-gradient-to-r from-blue-600 to-purple-600 h-screen items-center">
+      <div className="inline-flex items-center md:gap-10 shadow-2xl p-5 max-h-110 rounded-md bg-gradient-to-r from-blue-700 to-purple-700">
         <div>
           <h1 className="text-2xl">Login/Signup</h1>
-          <div className="flex flex-row justify-center items-center space-x-4 md:gap-10 mt-5 mb-5">
-            <Button className="hover:shadow-none hover:bg-gray-800 flex flex-row justify-center items-center gap-2">
+          <div className="flex flex-row justify-center items-center space-x-4 md:gap-10 mt-5 mb-5 bg-gradient-to-r">
+            <Button className="border-none shadow-blue-300  flex flex-row justify-center items-center gap-2">
               <FcGoogle className="text-2xl" />
               Login with Google
             </Button>
-            <Button className="hover:shadow-none hover:bg-gray-800 flex flex-row justify-center items-center gap-2">
+            <Button className="shadow-blue-300 border-none flex flex-row justify-center items-center gap-2">
               <FaGithub className="text-2xl" />
               Login with Github
             </Button>
@@ -36,7 +35,7 @@ const LogIn = () => {
               <input
                 type="email"
                 placeholder="Enter Email"
-                className="bg-gray-700 focus:bg-transparent border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none  "
+                className="border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none focus:border-b-2 focus:bg-blue-600 "
               />
             </div>
 
@@ -46,7 +45,7 @@ const LogIn = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter Password"
-                className="bg-gray-700 focus:bg-transparent border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none  "
+                className="border-b border-b-blue-500 p-2 rounded-md min-h-13 focus:outline-none focus:border-b-2 focus:bg-blue-600 "
               />
 
               <div
@@ -58,15 +57,18 @@ const LogIn = () => {
             </div>
           </div>
           <div className="inline-flex">
-            <NavLink to="/ForgetPassword" className="text-[12px]"> Forgot Password?</NavLink>
+            <NavLink to="/ForgetPassword" className="text-[12px]">
+              {" "}
+              Forgot Password?
+            </NavLink>
           </div>
           <div className="flex flex-col justify-center items-end gap-2 py-5">
-            <Button className="hover:bg-gray-800 hover:shadow-none flex items-center gap-2">
+            <Button className="border-none flex items-center">
               Login
-              <GoArrowRight className="text-xl" />
+              <GoArrowRight className="text-xl pt-1" />
             </Button>
           </div>
-          <div>
+          <div className="text-[12px]">
             <p>
               Create new account.
               <NavLink to="/SignUp" className="hover:underline pl-1">
@@ -76,13 +78,13 @@ const LogIn = () => {
           </div>
         </div>
 
-        <div>
+        {/* <div>
           <img
-            src="../../public/assets/login-pic.png"
+            src="../../public/assets/Login-bg-pic.png"
             alt="Pic"
-            className="md:w-120 h-100 md:rounded-2xl hidden md:block"
+            className="md:w-120 h-100 md:rounded-2xl hidden md:block opacity-80"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
