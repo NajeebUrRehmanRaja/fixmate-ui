@@ -6,7 +6,7 @@ import { FaGithub } from "react-icons/fa";
 import { Eye, EyeClosed } from "lucide-react";
 import { GoArrowRight } from "react-icons/go";
 
-const LogIn = () => {
+const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
@@ -56,7 +56,7 @@ const LogIn = () => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      alert("Login Successful!");
+      alert("Signup Successful!");
     }
   };
 
@@ -175,4 +175,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+export default Signup;
