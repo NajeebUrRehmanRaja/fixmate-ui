@@ -4,7 +4,7 @@ import Cards from "../components/Cards";
 
 const HowItWorks = () => {
   return (
-    <Container className="mt-5 bg-purple-600 w-auto rounded p-5">
+    <Container className="mt-15 bg-purple-600 w-auto rounded p-5">
       {/* Header Section */}
       <div className="flex flex-col justify-center py-4 items-center text-center">
         <h1 className="text-2xl md:text-4xl font-bold mb-2">How It Works</h1>

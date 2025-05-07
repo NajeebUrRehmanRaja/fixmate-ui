@@ -14,7 +14,7 @@ const Button = ({
   switch (variant) {
     case "primary":
       variantStyles =
-        "bg-transparent border-2 border-blue-500 text-white font-bold py-1 px-2 rounded-full hover:shadow-lg hover:shadow-blue-500/50 transition duration-300 ease-in-out cursor-pointer";
+        "bg-transparent  text-white font-bold py-1 px-2 rounded-full transition duration-300 ease-in-out cursor-pointer";
       break;
     case "secondary":
       variantStyles = "bg-gray-300 text-black hover:bg-gray-400 cursor-pointer";

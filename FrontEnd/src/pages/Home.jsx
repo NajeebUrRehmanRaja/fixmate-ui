@@ -66,7 +66,7 @@ const issues = [
 
 const Home = () => {
   return (
-    <Container className="flex flex-col items-center justify-center pt-50 ">
+    <Container className="flex flex-col items-center justify-center pt-40 ">
       <div className="flex flex-col items-center justify-center space-y-2 ">
         <h6 className="px-2 py-1 border rounded-full text-[12px]">
           New Feature: Multi-language Support
@@ -88,10 +88,10 @@ const Home = () => {
       <Link to={"/getstarted"}>
         <Button
           variant="primary"
-          className="mt-4 flex flex-row items-center gap-2 hover:shadow-none hover:bg-gray-800"
+          className="mt-4 flex flex-row items-center gap-1 border-blue-300 border-b-2 border-l-2 border-t-1 border-r-1 hover:shadow-none hover:border-purple-500"
         >
           Try it for free
-          <GoArrowRight className="text-2xl " />
+          <GoArrowRight className="text-2xl pt-1 " />
         </Button>
       </Link>
       <div className="flex justify-center w-full ">

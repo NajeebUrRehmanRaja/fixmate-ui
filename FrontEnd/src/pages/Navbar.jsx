@@ -21,7 +21,7 @@ const Navbar = () => {
       <Container className="flex justify-between items-center bg-gradient-to-r from-blue-500 to-purple-500 p-4 fixed h-15 w-full shadow-md z-10">
         {/* Logo */}
         <div className="flex justify-center items-center gap-1">
-          <Code className="h-6 w-6 text-purple-500" />
+          {/* <Code className="h-6 w-6 text-purple-500" /> */}
           <NavLink to="/" className="text-2xl font-bold text-white">
             FixMate
           </NavLink>
@@ -38,7 +38,7 @@ const Navbar = () => {
         </div>
 
         {/* Navigation Links */}
-        <div
+        {/* <div
           className={`${
             isMenuOpen ? "block" : "hidden"
           } md:flex space-x-5 text-lg absolute md:static top-15 p-3 left-0 w-full md:w-auto bg-purple-500 md:bg-transparent shadow-md md:shadow-none`}
@@ -49,26 +49,26 @@ const Navbar = () => {
           <NavLink to="/about" className={getNavLinkClass}>
             About
           </NavLink>
-        </div>
+        </div> */}
 
         {/* Buttons */}
         <div className="hidden md:flex space-x-4">
           <Link to="/login">
             <Button
               variant="primary"
-              className="border border-gray-300 hover:shadow-none hover:bg-purple-500 "
+              className="border border-purple-400  shadow-2xl hover:border-2"
             >
               Login
             </Button>
           </Link>
-          <Link to="/getstarted">
+          {/* <Link to="/getstarted">
             <Button
               variant="primary"
-              className="flex items-center border border-gray-300 gap-2 hover:shadow-none hover:bg-purple-500"
+              className="flex items-center border-none gap-2 hover:shadow-none hover:bg-purple-500"
             >
               Get started <GoArrowRight className="text-2xl" />
             </Button>
-          </Link>
+          </Link> */}
         </div>
       </Container>
     </nav>
