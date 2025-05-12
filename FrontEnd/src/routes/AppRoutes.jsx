@@ -5,7 +5,7 @@ import LogIn from "../pages/LogIn";
 import SignUp from "../pages/SignUp";
 import About from "../pages/About";
 import Report from "../pages/Report";
-import Footer from "../Layouts/FooterLayout"
+import ForgetPassword from "../pages/ForgetPassword";
 import NotFound from "../pages/NotFound";
 import GetStarted from "../pages/GetStarted";
 import NavbarLayout from "../Layouts/NavbarLayout";
@@ -23,6 +23,7 @@ const AppRoutes = () => {
 
       {/* Route without navbar */}
       <Route path="login" element={<LogIn />} />
+      <Route path="forgetpassword" element={<ForgetPassword />} />
       <Route path="signup" element={<SignUp />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

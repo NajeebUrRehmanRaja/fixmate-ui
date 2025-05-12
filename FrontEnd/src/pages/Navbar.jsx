@@ -37,38 +37,16 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Navigation Links */}
-        {/* <div
-          className={`${
-            isMenuOpen ? "block" : "hidden"
-          } md:flex space-x-5 text-lg absolute md:static top-15 p-3 left-0 w-full md:w-auto bg-purple-500 md:bg-transparent shadow-md md:shadow-none`}
-        >
-          <NavLink to="/" className={getNavLinkClass}>
-            Home
-          </NavLink>
-          <NavLink to="/about" className={getNavLinkClass}>
-            About
-          </NavLink>
-        </div> */}
-
         {/* Buttons */}
         <div className="hidden md:flex space-x-4">
           <Link to="/login">
             <Button
               variant="primary"
-              className="border border-purple-400  shadow-2xl hover:border-2"
+              className="border border-purple-400 py-2 px-10 shadow-2xl hover:border-2"
             >
               Login
             </Button>
           </Link>
-          {/* <Link to="/getstarted">
-            <Button
-              variant="primary"
-              className="flex items-center border-none gap-2 hover:shadow-none hover:bg-purple-500"
-            >
-              Get started <GoArrowRight className="text-2xl" />
-            </Button>
-          </Link> */}
         </div>
       </Container>
     </nav>
