@@ -30,7 +30,7 @@ const ForgetPassword = () => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      alert("Login Successful!");
+      alert("Verify Successful!");
     }
   };
   return (
