@@ -31,9 +31,7 @@ const CodeReviewPage = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
-  const [code, setCode] = useState(
-    `// Enter your code here\n\nfunction example() {\n  const x = 5;\n  console.log("This is a sample function");\n  return x;\n}`
-  );
+  const [code, setCode] = useState(``);
   const [isReviewStarted, setIsReviewStarted] = useState(false); // New state to track review start
 
   const filteredResults =
