@@ -66,11 +66,11 @@ const Signup = () => {
         <div>
           <h1 className="text-2xl">Login/Signup</h1>
           <div className="flex flex-row justify-center items-center space-x-4 md:gap-10 mt-5 mb-5 bg-gradient-to-r">
-            <Button className="border-none shadow-blue-300  flex flex-row justify-center items-center gap-2">
+            <Button className="hover:border flex flex-row justify-center items-center gap-2">
               <FcGoogle className="text-2xl" />
               Login with Google
             </Button>
-            <Button className="shadow-blue-300 border-none flex flex-row justify-center items-center gap-2">
+            <Button className="hover:border flex flex-row justify-center items-center gap-2">
               <FaGithub className="text-2xl" />
               Login with Github
             </Button>
