@@ -1,15 +1,13 @@
-// index.js
-const express = require("express");
-const app = express();
-// const PORT = process.env.PORT || 5000;
-const { clerkMiddleware } = require( '@clerk/express')
-const { env } = require(`env.config.js`)
-// Middleware
-app.use(express.json()); // to parse JSON request bodies
-app.use(clerkMiddleware());
+import express from "express";
+import connectDB from "./src/Config/db.config.js"; // also make sure the file ends in .js if you're using ES Modules
+import dotenv from "dotenv";
+dotenv.config();
 
-const PORT = env.PORT || 3000;
-// Start server
-connectDB().then(() => {
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const app = express();
+const PORT = process.env.PORT || 8000;
+
+connectDB();
+
+app.listen(PORT, () => {
+  console.log(`Server is Running on PORT: ${PORT}`);
 });

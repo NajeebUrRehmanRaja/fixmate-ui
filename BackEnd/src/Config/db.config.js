@@ -1,14 +1,17 @@
 import mongoose from "mongoose";
-import { env } from "./env.config";
+import { env } from "./env.config.js"; // make sure the path is correct
 
-export const connectDB = async() =>{
-    try{
-        const connect = await mongoose.connect(env.MONGO_URI, {
-            dbName: "FixMate",
-        });
-        console.log(`MongoDB Connected: ${connect.connection.host}`);
-    } catch(error) {
-        console.log("Something Went Wrong While Connecting to DB", error);
-        proccess.exit(1);
-    }
-}
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.error("MongoDB connection failed:", error.message);
+    process.exit(1);
+  }
+};
+
+export default connectDB;
