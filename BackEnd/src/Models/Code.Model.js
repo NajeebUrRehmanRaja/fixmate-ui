@@ -3,6 +3,7 @@ import mongoose, { Schema } from "mongoose";
 const codeSchema = new Schema(
   {
     userid: { type: Schema.Types.ObjectId, ref: "User" },
+    code: { type: String },
   },
   { timestamps: true }
 );

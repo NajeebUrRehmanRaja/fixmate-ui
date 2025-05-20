@@ -9,7 +9,6 @@ const userSchema = new schema(
     imgurl: { type: String },
     credit: { type: Number, default: 5 },
     stripeid: { type: String },
-    code: { type: String },
   },
   { timestamps: true }
 );
