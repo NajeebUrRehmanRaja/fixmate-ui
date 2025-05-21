@@ -88,10 +88,10 @@ const Home = () => {
       <Link to={"/getstarted"}>
         <Button
           variant="primary"
-          className="mt-4 flex flex-row items-center gap-1 border-blue-300 border-b-2 border-l-2 border-t-1 border-r-1 hover:shadow-none hover:border-purple-500"
+          className="mt-4 flex flex-row items-center gap-1 border hover:border-l-transparent hover:border-r-transparent hover:border-t-transparent hover:shadow-purple-400 hover:border-pink-600"
         >
           Try it for free
-          <GoArrowRight className="text-2xl pt-1 " />
+          <GoArrowRight className="text-2xl pt-1" />
         </Button>
       </Link>
       <div className="flex justify-center w-full ">

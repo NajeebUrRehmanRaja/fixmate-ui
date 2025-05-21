@@ -56,11 +56,11 @@ const LogIn = () => {
         <div>
           <h1 className="text-2xl">Login/Signup</h1>
           <div className="flex flex-row justify-center items-center space-x-4 md:gap-10 mt-5 mb-5 bg-gradient-to-r">
-            <Button className="hover:border flex flex-row justify-center items-center gap-2">
+            <Button className="border hover:border-l-transparent hover:border-r-transparent hover:border-t-transparent hover:shadow-xl hover:border-pink-600 flex flex-row justify-center items-center gap-2">
               <FcGoogle className="text-2xl" />
               Login with Google
             </Button>
-            <Button className="hover:border flex flex-row justify-center items-center gap-2">
+            <Button className="border hover:border-l-transparent hover:border-r-transparent hover:border-t-transparent hover:shadow-xl hover:border-pink-600 flex flex-row justify-center items-center gap-2">
               <FaGithub className="text-2xl" />
               Login with Github
             </Button>
@@ -112,7 +112,10 @@ const LogIn = () => {
               </NavLink>
             </div>
             <div className="flex flex-col justify-center items-end gap-2 ">
-              <Button type="submit" className=" border flex items-center hover:border-l-2 hover:border-pink-600">
+              <Button
+                type="submit"
+                className="border hover:border-l-transparent hover:border-r-transparent hover:border-t-transparent hover:shadow-xl hover:border-pink-600 flex items-center"
+              >
                 Login
                 <GoArrowRight className="text-xl pt-1" />
               </Button>
