@@ -157,7 +157,7 @@ const Signup = () => {
             </div>
             {/* Submit Button */}
             <div className="flex flex-col justify-center items-end gap-2 p-2">
-              <Button type="submit" className="border-none flex items-center">
+              <Button type="submit" className="border flex items-center hover:border-l-2 hover:border-pink-600">
                 Signup
                 <GoArrowRight className="text-xl pt-1" />
               </Button>
