@@ -56,7 +56,10 @@ const ForgetPassword = () => {
             </div>
 
             <div className="flex flex-col justify-center items-end gap-2 ">
-              <Button type="submit" className="border-none flex items-center">
+              <Button
+                type="submit"
+                className="border hover:border-l-transparent hover:border-r-transparent hover:border-t-transparent hover:shadow-xl hover:border-pink-600 flex items-center"
+              >
                 Verify
                 <GoArrowRight className="text-xl pt-1" />
               </Button>
