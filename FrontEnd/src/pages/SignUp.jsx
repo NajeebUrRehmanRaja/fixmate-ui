@@ -62,19 +62,10 @@ const Signup = () => {
 
   return (
     <div className="flex justify-center bg-gradient-to-r from-blue-600 to-purple-600 h-screen items-center">
-      <div className="p-4 rounded-md bg-gradient-to-r from-blue-700 to-purple-700">
+      <div className="p-4 w-[50%] rounded-md bg-gradient-to-r from-blue-700 to-purple-700">
         <div>
           <h1 className="text-2xl">Login/Signup</h1>
-          <div className="flex flex-row justify-center items-center space-x-4 md:gap-10 mt-5 mb-5 bg-gradient-to-r">
-            <Button className="border hover:border-l-transparent hover:border-r-transparent hover:border-t-transparent hover:shadow-xl hover:border-pink-600 flex flex-row justify-center items-center gap-2">
-              <FcGoogle className="text-2xl" />
-              Login with Google
-            </Button>
-            <Button className="border hover:border-l-transparent hover:border-r-transparent hover:border-t-transparent hover:shadow-xl hover:border-pink-600 flex flex-row justify-center items-center gap-2">
-              <FaGithub className="text-2xl" />
-              Login with Github
-            </Button>
-          </div>
+
 
           <form onSubmit={handleSubmit}>
             <div className="">
@@ -165,7 +156,7 @@ const Signup = () => {
                 <GoArrowRight className="text-xl pt-1" />
               </Button>
             </div>
-            <div className="flex -mt-3 gap-1 text-[12px]">
+            <div className="flex gap-1 text-[12px]">
               <p>Already have an account?</p>{" "}
               <NavLink to="/Login" className="hover:underline">
                 Login
