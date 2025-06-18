@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Button from "../components/ButtonComponents";
 import { NavLink } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+// import { FcGoogle } from "react-icons/fc";
+// import { FaGithub } from "react-icons/fa";
+import axios from "axios";
 import { Eye, EyeClosed } from "lucide-react";
 import { GoArrowRight } from "react-icons/go";
 
@@ -28,7 +29,7 @@ const LogIn = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = {};
 
@@ -46,8 +47,23 @@ const LogIn = () => {
     }
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {
-      alert("Login Successful!");
+    if ((Object.key(validationErrors), length === 0)) {
+      try {
+        const res = await axios.post(
+          "http://localhost:5000/api/auth/login",
+          formData
+        );
+
+        // Save JWT to localStorage
+        localStorage.setItem("token", res.data.token);
+
+        alert("Login Successful!");
+
+        // Optionally navigate to dashboard
+        // navigate("/dashboard");
+      } catch (err) {
+        alert(err.response?.data?.msg || "Login failed");
+      }
     }
   };
   return (
