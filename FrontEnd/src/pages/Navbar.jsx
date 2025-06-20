@@ -22,7 +22,8 @@ const Navbar = () => {
         {/* Logo */}
         <div className="flex justify-center items-center gap-1">
           {/* <Code className="h-6 w-6 text-purple-500" /> */}
-          <NavLink to="/" className="text-2xl font-bold text-white">
+          <NavLink to="/" className="flex gap-1 text-2xl font-bold text-white">
+            <img src="../../public/assets/Logo.png" alt="logo" width={30} />
             FixMate
           </NavLink>
         </div>

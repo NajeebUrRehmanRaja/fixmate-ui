@@ -6,6 +6,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
+              <img src="../../public/assets/Logo.png" alt="logo" width={30} />
               <span className="text-lg font-bold">FixMate</span>
             </div>
             <p className="text-sm text-muted-foreground mb-4">

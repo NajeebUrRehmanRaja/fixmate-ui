@@ -7,7 +7,7 @@ const NotFound = () => {
         <img
           src="../../public/assets/Page Not Found_img.png"
           alt="PAGE NOT FOUND 404 Error"
-          className=" h-142"
+          className=" h-142 w-320"
         />
       </div>
     </div>
