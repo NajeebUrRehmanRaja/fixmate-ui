@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { Eye, EyeClosed } from "lucide-react";
 import { GoArrowRight } from "react-icons/go";
+import axiosInstance from "../lib/axios";
 
 const LogIn = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -49,8 +50,8 @@ const LogIn = () => {
 
     if ((Object.key(validationErrors), length === 0)) {
       try {
-        const res = await axios.post(
-          "http://localhost:5000/api/auth/login",
+        const res = await axiosInstance.post(
+          "/auth/login",
           formData
         );
 
