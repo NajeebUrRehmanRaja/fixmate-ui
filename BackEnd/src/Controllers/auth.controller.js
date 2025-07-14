@@ -1,5 +1,5 @@
 import  { User } from "../Models/User.Model.js";
-import { env } from "../config/env.config.js";
+import { env } from "../Config/env.config.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
