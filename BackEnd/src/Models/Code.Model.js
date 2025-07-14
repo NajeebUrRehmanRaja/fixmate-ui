@@ -3,9 +3,13 @@ import mongoose, { Schema } from "mongoose";
 const codeSchema = new Schema(
   {
     userid: { type: Schema.Types.ObjectId, ref: "User" },
-    code: { type: String },
+    code: { type: String,required:true },
+    feedback: {
+      type: String,
+      required:true
+    }
   },
   { timestamps: true }
 );
 
-export const userId = mongoose.model("UserId", codeSchema);
+export const Code = mongoose.model("Code", codeSchema);

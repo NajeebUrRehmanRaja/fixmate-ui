@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import connectDB from "./src/Config/db.config.js"; // also make sure the file ends in .js if you're using ES Modules
 import dotenv from "dotenv";
 import authRoutes from "./src/Routes/auth.routes.js";
+import codeRoutes from "./src/Routes/code.routes.js";
 dotenv.config();
 
 const PORT = process.env.PORT || 8000;
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoutes);
+app.use("/api/code",codeRoutes)
 
 connectDB();
 
