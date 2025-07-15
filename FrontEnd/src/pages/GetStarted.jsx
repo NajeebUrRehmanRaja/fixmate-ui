@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Editor from "@monaco-editor/react";
 import { saveAs } from "file-saver";
+import { toast } from "sonner";
 
 const tabs = ["All", "Bugs", "Security", "Performance", "Style"];
 
@@ -28,11 +29,9 @@ const results = [
 const CodeReviewPage = () => {
   const [activeTab, setActiveTab] = useState("All");
   const [activeEditorTab, setActiveEditorTab] = useState("Code Editor");
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-
   const [code, setCode] = useState(``);
   const [isReviewStarted, setIsReviewStarted] = useState(false); // New state to track review start
+  const [isBugDetectStarted, setIsBugDetectStarted] = useState(false);
 
   const filteredResults =
     activeTab === "All"
@@ -62,12 +61,7 @@ const CodeReviewPage = () => {
       navigator.clipboard
         .writeText(analysis)
         .then(() => {
-          console.log("Form submitted!");
-          setToastMessage("✅ Copied all fixes successfully!");
-          setShowToast(true);
-          setTimeout(() => {
-            setShowToast(false);
-          }, 3000);
+          
         })
         .catch((err) => {
           console.error("Failed Copy:", err);
@@ -78,7 +72,14 @@ const CodeReviewPage = () => {
     if (code.trim() !== "") {
       setIsReviewStarted(true);
     } else {
-      alert("Please enter some code before starting review.");
+      toast.error("🚫 Please enter code before reviewing.");
+    }
+  };
+  const handleBugDetect = () => {
+    if (code.trim() !== "") {
+      setIsBugDetectStarted(true);
+    } else {
+      toast.error("🚫 Please enter code before debugging.");
     }
   };
 
@@ -146,7 +147,7 @@ const CodeReviewPage = () => {
             </div>
           )}
 
-          <div className="flex">
+          <div className="flex justify-end gap-10">
             <button
               className="mt-4 bg-blue-600 p-2 rounded hover:bg-blue-700 cursor-pointer"
               onClick={handleReviewCode}
@@ -154,10 +155,10 @@ const CodeReviewPage = () => {
               Review Code
             </button>
             <button
-              className="ml-10 mt-4 bg-blue-600 p-2 rounded hover:bg-blue-700 cursor-pointer"
-              onClick={handleReviewCode}
+              className="mt-4 bg-blue-600 p-2 rounded hover:bg-blue-700 cursor-pointer"
+              onClick={handleBugDetect}
             >
-              Detect Bugs
+              Debug Code
             </button>
           </div>
         </div>
