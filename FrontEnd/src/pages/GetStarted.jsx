@@ -146,12 +146,20 @@ const CodeReviewPage = () => {
             </div>
           )}
 
-          <button
-            className="mt-4 bg-blue-600 p-2 rounded hover:bg-blue-700 cursor-pointer"
-            onClick={handleReviewCode}
-          >
-            Review Code
-          </button>
+          <div className="flex">
+            <button
+              className="mt-4 bg-blue-600 p-2 rounded hover:bg-blue-700 cursor-pointer"
+              onClick={handleReviewCode}
+            >
+              Review Code
+            </button>
+            <button
+              className="ml-10 mt-4 bg-blue-600 p-2 rounded hover:bg-blue-700 cursor-pointer"
+              onClick={handleReviewCode}
+            >
+              Detect Bugs
+            </button>
+          </div>
         </div>
 
         {/* Analysis Results Section */}
