@@ -3,104 +3,140 @@ import Editor from "@monaco-editor/react";
 import { saveAs } from "file-saver";
 import { toast } from "sonner";
 
-const tabs = ["All", "Bugs", "Security", "Performance", "Style"];
+const tabs = ["All", "Security", "Performance", "Style"];
+const tabsBug = ["All", "Syntax Errors", "Logical Errors", "Runtime Errors"];
 
-const results = [
+const mockResults = [
   {
     type: "Bug",
     title: "Potential infinite loop due to incorrect loop condition",
-    suggestion: "Change '<=' to '<' in the for loop condition",
-    location: "Line 3, Column 32",
+    suggestion: "Change '<=' to '<' in the for‑loop condition",
+    location: "Line 3, Col 32",
   },
   {
     type: "Security",
-    title: "Potential null reference exception when accessing properties",
-    suggestion: "Add a null check before accessing the price property",
-    location: "Line 4, Column 10",
+    title: "Possible null reference when accessing price",
+    suggestion: "Add a null check before accessing price",
+    location: "Line 4, Col 10",
   },
   {
     type: "Performance",
-    title: "Consider using reduce() method instead of for loop",
-    suggestion: "Use reduce() for better performance",
-    location: "Line 2, Column 3",
+    title: "Use reduce() instead of for‑loop",
+    suggestion: "Switch to Array.reduce for better perf",
+    location: "Line 2, Col 3",
+  },
+];
+const mockResultsBugs = [
+  {
+    type: "Bug",
+    title: "Potential infinite loop due to incorrect loop condition",
+    suggestion: "Change '<=' to '<' in the for‑loop condition",
+    location: "Line 3, Col 32",
+  },
+  {
+    type: "Security",
+    title: "Possible null reference when accessing price",
+    suggestion: "Add a null check before accessing price",
+    location: "Line 4, Col 10",
+  },
+  {
+    type: "Performance",
+    title: "Use reduce() instead of for‑loop",
+    suggestion: "Switch to Array.reduce for better perf",
+    location: "Line 2, Col 3",
   },
 ];
 
 const CodeReviewPage = () => {
+  /* ───────────────────────────── state ───────────────────────────── */
   const [activeTab, setActiveTab] = useState("All");
-  const [activeEditorTab, setActiveEditorTab] = useState("Code Editor");
-  const [code, setCode] = useState(``);
-  const [isReviewStarted, setIsReviewStarted] = useState(false); // New state to track review start
-  const [isBugDetectStarted, setIsBugDetectStarted] = useState(false);
+  const [activeTabsBugs, setActiveTabsBugs] = useState("All");
+  const [editorTab, setEditorTab] = useState("Code Editor");
+  const [code, setCode] = useState("");
+  const [analysis, setAnalysis] = useState(""); // ← shared text
+  // const [isReviewStarted, setIsReview] = useState(false);
+  // const [isBugDetectStarted, setIsBugging] = useState(false);
+  const [activeMode, setActiveMode] = useState(null); // "review" | "debug" | null
 
-  const filteredResults =
+  /* ────────────────────────── derived data ───────────────────────── */
+  const filtered =
     activeTab === "All"
-      ? results
-      : results.filter((item) => item.type === activeTab);
+      ? mockResults
+      : mockResults.filter((r) => r.type === activeTab);
 
+  const filteredBugs =
+    activeTabsBugs === "All"
+      ? mockResultsBugs
+      : mockResultsBugs.filter((r) => r.type === activeTabsBugs);
+
+  /* ─────────────────────────── handlers ──────────────────────────── */
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setCode(event.target.result);
-      };
-      reader.readAsText(file);
-    }
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (evt) => setCode(evt.target.result);
+    reader.readAsText(file);
   };
 
   const handleExportReport = () => {
-    const analysis = "Your code analysis results go here!";
-
-    const blob = new Blob([analysis], { type: "text/plain;charset=utf-8" });
-    saveAs(blob, "code-analysis.txt");
+    const text = "Your code analysis results go here!";
+    setAnalysis(text); // save for copy
+    saveAs(
+      new Blob([text], { type: "text/plain;charset=utf‑8" }),
+      "code‑analysis.txt"
+    );
+    toast.success("Report exported");
   };
 
   const handleCopyAllFixes = () => {
-    if (analysis) {
-      navigator.clipboard
-        .writeText(analysis)
-        .then(() => {
-          
-        })
-        .catch((err) => {
-          console.error("Failed Copy:", err);
-        });
+    if (!analysis) {
+      toast.error("Nothing to copy — run a review first");
+      return;
     }
+    navigator.clipboard
+      .writeText(analysis)
+      .then(() => toast.success("✅ Copied all fixes"))
+      .catch(() => toast.error("Clipboard failed"));
   };
+
   const handleReviewCode = () => {
-    if (code.trim() !== "") {
-      setIsReviewStarted(true);
-    } else {
-      toast.error("🚫 Please enter code before reviewing.");
+    if (!code.trim()) {
+      toast.error("Enter code before reviewing");
+      return;
     }
+    setActiveMode("review"); // mock text
+    toast.success("🔍 Code review started");
   };
+
   const handleBugDetect = () => {
-    if (code.trim() !== "") {
-      setIsBugDetectStarted(true);
-    } else {
-      toast.error("🚫 Please enter code before debugging.");
+    if (!code.trim()) {
+      toast.error("Enter code before debugging");
+      return;
     }
+    setActiveMode("debug");
+    toast.success("Bug detection started");
   };
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-white p-8 flex flex-col">
       <h1 className="text-2xl font-bold mb-6">Code Review Tool</h1>
+
       <div
         className={`flex flex-1 gap-8 flex-col ${
-          isReviewStarted ? "md:flex-row" : ""
+          activeMode !== null ? "md:flex-row" : ""
         }`}
       >
-        {/* Code Input Section */}
+        {/* ──────── code input ──────── */}
         <div
           className={`flex flex-col ${
-            isReviewStarted ? "w-full md:w-1/2" : "w-full"
+            activeMode !== null ? "w-full md:w-1/2" : "w-full"
           } border border-gray-700 rounded-lg p-5`}
         >
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">Code Input</h2>
             <select
-              className="bg-gray-800 text-white p-2 rounded cursor-pointer"
+              className="bg-gray-800 text-white p-2 rounded"
               defaultValue="JavaScript"
             >
               <option value="C#">C#</option>
@@ -113,22 +149,22 @@ const CodeReviewPage = () => {
             {["Code Editor", "Upload File"].map((tab) => (
               <button
                 key={tab}
-                onClick={() => setActiveEditorTab(tab)}
-                className={`flex-1 p-2 cursor-pointer ${
-                  activeEditorTab === tab ? "bg-blue-600" : "bg-gray-700"
-                } rounded-l first:rounded-r-none last:rounded-r`}
+                onClick={() => setEditorTab(tab)}
+                className={`flex-1 p-2 ${
+                  editorTab === tab ? "bg-blue-600" : "bg-gray-700"
+                } first:rounded-l last:rounded-r`}
               >
                 {tab}
               </button>
             ))}
           </div>
 
-          {activeEditorTab === "Code Editor" ? (
+          {editorTab === "Code Editor" ? (
             <Editor
               height="300px"
               language="javascript"
               value={code}
-              onChange={(value) => setCode(value)}
+              onChange={(val) => setCode(val ?? "")}
               theme="vs-dark"
             />
           ) : (
@@ -140,22 +176,22 @@ const CodeReviewPage = () => {
                   onChange={handleFileUpload}
                   className="hidden"
                 />
-                <div className="text-gray-400 hover:text-white">
+                <span className="text-gray-400 hover:text-white">
                   📂 Click to upload your code file
-                </div>
+                </span>
               </label>
             </div>
           )}
 
-          <div className="flex justify-end gap-10">
+          <div className="flex justify-end gap-6">
             <button
-              className="mt-4 bg-blue-600 p-2 rounded hover:bg-blue-700 cursor-pointer"
+              className="mt-4 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700"
               onClick={handleReviewCode}
             >
               Review Code
             </button>
             <button
-              className="mt-4 bg-blue-600 p-2 rounded hover:bg-blue-700 cursor-pointer"
+              className="mt-4 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700"
               onClick={handleBugDetect}
             >
               Debug Code
@@ -163,15 +199,15 @@ const CodeReviewPage = () => {
           </div>
         </div>
 
-        {/* Analysis Results Section */}
-        {isReviewStarted && (
+        {/* ──────── analysis results ──────── */}
+        {activeMode === "review" && (
           <div className="flex flex-col w-full md:w-1/2 border border-gray-700 rounded-lg p-5">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold">Analysis Results</h2>
-              <div className="text-sm text-gray-400">
+              <span className="text-sm text-gray-400">
                 Code Quality:{" "}
                 <span className="text-green-400 font-bold">76/100</span>
-              </div>
+              </span>
             </div>
 
             <div className="flex mb-4">
@@ -181,7 +217,7 @@ const CodeReviewPage = () => {
                   onClick={() => setActiveTab(tab)}
                   className={`flex-1 p-2 cursor-pointer ${
                     activeTab === tab ? "bg-blue-600" : "bg-gray-700"
-                  } rounded-l  first:rounded-r-none last:rounded-r`}
+                  } first:rounded-l last:rounded-r`}
                 >
                   {tab}
                 </button>
@@ -189,54 +225,119 @@ const CodeReviewPage = () => {
             </div>
 
             <div className="overflow-y-auto max-h-96">
-              {filteredResults.map((result, index) => (
+              {filtered.map((r, i) => (
                 <div
-                  key={index}
+                  key={i}
                   className="bg-[#1e293b] rounded p-4 mb-4 border border-gray-600"
                 >
                   <span
                     className={`font-bold ${
-                      result.type === "Bug"
+                      r.type === "Bug"
                         ? "text-red-400"
-                        : result.type === "Security"
+                        : r.type === "Security"
                         ? "text-yellow-400"
-                        : result.type === "Performance"
+                        : r.type === "Performance"
                         ? "text-green-400"
                         : "text-blue-400"
                     }`}
                   >
-                    {result.type}
+                    {r.type}
                   </span>
-                  <p className="mt-2">{result.title}</p>
-                  <div className="text-gray-300 text-sm mt-2">
-                    Suggestion: {result.suggestion}
-                  </div>
-                  <div className="text-gray-500 text-xs mt-1">
-                    {result.location}
-                  </div>
+                  <p className="mt-2">{r.title}</p>
+                  <p className="text-gray-300 text-sm mt-2">
+                    Suggestion: {r.suggestion}
+                  </p>
+                  <p className="text-gray-500 text-xs mt-1">{r.location}</p>
                 </div>
               ))}
             </div>
 
             <div className="flex gap-2 mt-4">
               <button
-                className="bg-gray-700 p-2 rounded hover:bg-gray-600 flex-1 cursor-pointer"
+                className="flex-1 bg-gray-700 px-4 py-2 rounded hover:bg-gray-600"
                 onClick={handleExportReport}
               >
                 Export Report
               </button>
               <button
-                className="bg-gray-700 p-2 rounded hover:bg-gray-600 flex-1 cursor-pointer"
+                className="flex-1 bg-gray-700 px-4 py-2 rounded hover:bg-gray-600"
                 onClick={handleCopyAllFixes}
               >
                 Copy All Fixes
               </button>
-              {showToast && (
-                <div className="fixed bottom-5 right-5 bg-green-500 text-white px-6 py-4 rounded shadow-lg transition-opacity duration-500">
-                  {toastMessage}
+              <button className="flex-1 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700">
+                Fix Selected Issues
+              </button>
+            </div>
+          </div>
+        )}
+        <div></div>
+        {activeMode === "debug" && (
+          <div className="flex flex-col w-full md:w-1/2 border border-gray-700 rounded-lg p-5">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold">Analysis Results</h2>
+              <span className="text-sm text-gray-400">
+                Code Quality:{" "}
+                <span className="text-green-400 font-bold">76/100</span>
+              </span>
+            </div>
+
+            <div className="flex mb-4">
+              {tabsBug.map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTabsBugs(tab)} // ✅ Fixed here
+                  className={`flex-1 p-2 ${
+                    activeTabsBugs === tab ? "bg-blue-600" : "bg-gray-700"
+                  } first:rounded-l last:rounded-r`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+
+            <div className="overflow-y-auto max-h-96">
+              {filteredBugs.map((r, i) => (
+                <div
+                  key={i}
+                  className="bg-[#1e293b] rounded p-4 mb-4 border border-gray-600"
+                >
+                  <span
+                    className={`font-bold ${
+                      r.type === "Bug"
+                        ? "text-red-400"
+                        : r.type === "Security"
+                        ? "text-yellow-400"
+                        : r.type === "Performance"
+                        ? "text-green-400"
+                        : "text-blue-400"
+                    }`}
+                  >
+                    {r.type}
+                  </span>
+                  <p className="mt-2">{r.title}</p>
+                  <p className="text-gray-300 text-sm mt-2">
+                    Suggestion: {r.suggestion}
+                  </p>
+                  <p className="text-gray-500 text-xs mt-1">{r.location}</p>
                 </div>
-              )}
-              <button className="bg-blue-600 p-2 rounded hover:bg-blue-700 flex-1 cursor-pointer">
+              ))}
+            </div>
+
+            <div className="flex gap-2 mt-4">
+              <button
+                className="flex-1 bg-gray-700 px-4 py-2 rounded hover:bg-gray-600"
+                onClick={handleExportReport}
+              >
+                Export Report
+              </button>
+              <button
+                className="flex-1 bg-gray-700 px-4 py-2 rounded hover:bg-gray-600"
+                onClick={handleCopyAllFixes}
+              >
+                Copy All Fixes
+              </button>
+              <button className="flex-1 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700">
                 Fix Selected Issues
               </button>
             </div>

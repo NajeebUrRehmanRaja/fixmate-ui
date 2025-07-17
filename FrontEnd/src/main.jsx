@@ -12,7 +12,7 @@ createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <AppRoutes />
       {/* Sonner toast container */}
-      <Toaster richColors position="bottom-right" />
+      <Toaster richColors position="bottom-left" />
     </BrowserRouter>
   </React.StrictMode>
 );
