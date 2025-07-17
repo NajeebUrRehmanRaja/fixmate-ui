@@ -54,8 +54,6 @@ const CodeReviewPage = () => {
   const [editorTab, setEditorTab] = useState("Code Editor");
   const [code, setCode] = useState("");
   const [analysis, setAnalysis] = useState(""); // ← shared text
-  // const [isReviewStarted, setIsReview] = useState(false);
-  // const [isBugDetectStarted, setIsBugging] = useState(false);
   const [activeMode, setActiveMode] = useState(null); // "review" | "debug" | null
 
   /* ────────────────────────── derived data ───────────────────────── */
@@ -136,7 +134,7 @@ const CodeReviewPage = () => {
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">Code Input</h2>
             <select
-              className="bg-gray-800 text-white p-2 rounded"
+              className="bg-gray-800 text-white p-2 rounded cursor-pointer"
               defaultValue="JavaScript"
             >
               <option value="C#">C#</option>
@@ -150,7 +148,7 @@ const CodeReviewPage = () => {
               <button
                 key={tab}
                 onClick={() => setEditorTab(tab)}
-                className={`flex-1 p-2 ${
+                className={`flex-1 p-2 cursor-pointer ${
                   editorTab === tab ? "bg-blue-600" : "bg-gray-700"
                 } first:rounded-l last:rounded-r`}
               >
@@ -185,13 +183,13 @@ const CodeReviewPage = () => {
 
           <div className="flex justify-end gap-6">
             <button
-              className="mt-4 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700"
+              className="mt-4 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 cursor-pointer"
               onClick={handleReviewCode}
             >
               Review Code
             </button>
             <button
-              className="mt-4 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700"
+              className="mt-4 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 cursor-pointer"
               onClick={handleBugDetect}
             >
               Debug Code
@@ -275,7 +273,7 @@ const CodeReviewPage = () => {
         {activeMode === "debug" && (
           <div className="flex flex-col w-full md:w-1/2 border border-gray-700 rounded-lg p-5">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Analysis Results</h2>
+              <h2 className="text-xl font-semibold">Debugging Results</h2>
               <span className="text-sm text-gray-400">
                 Code Quality:{" "}
                 <span className="text-green-400 font-bold">76/100</span>
@@ -287,7 +285,7 @@ const CodeReviewPage = () => {
                 <button
                   key={tab}
                   onClick={() => setActiveTabsBugs(tab)} // ✅ Fixed here
-                  className={`flex-1 p-2 ${
+                  className={`flex-1 p-2 cursor-pointer ${
                     activeTabsBugs === tab ? "bg-blue-600" : "bg-gray-700"
                   } first:rounded-l last:rounded-r`}
                 >
@@ -326,18 +324,18 @@ const CodeReviewPage = () => {
 
             <div className="flex gap-2 mt-4">
               <button
-                className="flex-1 bg-gray-700 px-4 py-2 rounded hover:bg-gray-600"
+                className="flex-1 bg-gray-700 px-4 py-2 rounded hover:bg-gray-600 cursor-pointer"
                 onClick={handleExportReport}
               >
                 Export Report
               </button>
               <button
-                className="flex-1 bg-gray-700 px-4 py-2 rounded hover:bg-gray-600"
+                className="flex-1 bg-gray-700 px-4 py-2 rounded hover:bg-gray-600 cursor-pointer"
                 onClick={handleCopyAllFixes}
               >
                 Copy All Fixes
               </button>
-              <button className="flex-1 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700">
+              <button className="flex-1 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 cursor-pointer">
                 Fix Selected Issues
               </button>
             </div>
