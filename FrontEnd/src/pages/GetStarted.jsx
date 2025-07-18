@@ -118,7 +118,7 @@ const CodeReviewPage = () => {
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-white p-8 flex flex-col">
-      <h1 className="text-2xl font-bold mb-6">Code Review Tool</h1>
+      <h1 className="text-2xl font-bold mb-6 my-15">Fixmate AI Tool</h1>
 
       <div
         className={`flex flex-1 gap-8 flex-col ${
