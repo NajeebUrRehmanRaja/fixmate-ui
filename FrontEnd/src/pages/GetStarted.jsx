@@ -6,47 +6,6 @@ import { toast } from "sonner";
 const tabs = ["All", "Security", "Performance", "Style"];
 const tabsBug = ["All", "Syntax Errors", "Logical Errors", "Runtime Errors"];
 
-const mockResults = [
-  {
-    type: "Bug",
-    title: "Potential infinite loop due to incorrect loop condition",
-    suggestion: "Change '<=' to '<' in the for‑loop condition",
-    location: "Line 3, Col 32",
-  },
-  {
-    type: "Security",
-    title: "Possible null reference when accessing price",
-    suggestion: "Add a null check before accessing price",
-    location: "Line 4, Col 10",
-  },
-  {
-    type: "Performance",
-    title: "Use reduce() instead of for‑loop",
-    suggestion: "Switch to Array.reduce for better perf",
-    location: "Line 2, Col 3",
-  },
-];
-const mockResultsBugs = [
-  {
-    type: "Bug",
-    title: "Potential infinite loop due to incorrect loop condition",
-    suggestion: "Change '<=' to '<' in the for‑loop condition",
-    location: "Line 3, Col 32",
-  },
-  {
-    type: "Security",
-    title: "Possible null reference when accessing price",
-    suggestion: "Add a null check before accessing price",
-    location: "Line 4, Col 10",
-  },
-  {
-    type: "Performance",
-    title: "Use reduce() instead of for‑loop",
-    suggestion: "Switch to Array.reduce for better perf",
-    location: "Line 2, Col 3",
-  },
-];
-
 const CodeReviewPage = () => {
   /* ───────────────────────────── state ───────────────────────────── */
   const [activeTab, setActiveTab] = useState("All");
@@ -56,16 +15,19 @@ const CodeReviewPage = () => {
   const [analysis, setAnalysis] = useState(""); // ← shared text
   const [activeMode, setActiveMode] = useState(null); // "review" | "debug" | null
 
+  const [reviewResults, setReviewResults] = useState([]);
+  const [debugResults, setDebugResults] = useState([]);
+
   /* ────────────────────────── derived data ───────────────────────── */
   const filtered =
     activeTab === "All"
-      ? mockResults
-      : mockResults.filter((r) => r.type === activeTab);
+      ? reviewResults
+      : reviewResults.filter((r) => r.type === activeTab);
 
   const filteredBugs =
     activeTabsBugs === "All"
-      ? mockResultsBugs
-      : mockResultsBugs.filter((r) => r.type === activeTabsBugs);
+      ? debugResults
+      : debugResults.filter((r) => r.type === activeTabsBugs);
 
   /* ─────────────────────────── handlers ──────────────────────────── */
   const handleFileUpload = (e) => {
@@ -81,8 +43,8 @@ const CodeReviewPage = () => {
     const text = "Your code analysis results go here!";
     setAnalysis(text); // save for copy
     saveAs(
-      new Blob([text], { type: "text/plain;charset=utf‑8" }),
-      "code‑analysis.txt"
+      new Blob([text], { type: "text/plain;charset=utf-8" }),
+      "code-analysis.txt"
     );
     toast.success("Report exported");
   };
@@ -98,22 +60,65 @@ const CodeReviewPage = () => {
       .catch(() => toast.error("Clipboard failed"));
   };
 
+  // ✅ Dynamic review handler
   const handleReviewCode = () => {
     if (!code.trim()) {
       toast.error("Enter code before reviewing");
       return;
     }
-    setActiveMode("review"); // mock text
+
+    // 🔥 Simulated dynamic results (you can replace this with API call)
+    const dynamicData = [
+      {
+        type: "Bug",
+        title: `Missing semicolon in your code`,
+        suggestion: `Add ';' at the end of statements`,
+        location: "Line 5, Col 12",
+      },
+      {
+        type: "Performance",
+        title: `Unnecessary nested loop detected`,
+        suggestion: `Use a map instead of nested loops`,
+        location: "Line 10, Col 3",
+      },
+      {
+        type: "Security",
+        title: `Direct eval() usage found`,
+        suggestion: `Avoid using eval() to prevent security risks`,
+        location: "Line 15, Col 6",
+      },
+    ];
+
+    setReviewResults(dynamicData);
+    setActiveMode("review");
     toast.success("🔍 Code review started");
   };
 
+  // ✅ Dynamic debug handler
   const handleBugDetect = () => {
     if (!code.trim()) {
       toast.error("Enter code before debugging");
       return;
     }
+
+    const dynamicDebugData = [
+      {
+        type: "Bug",
+        title: `Variable 'x' is not defined`,
+        suggestion: `Declare the variable before using it`,
+        location: "Line 2, Col 7",
+      },
+      {
+        type: "Syntax Errors",
+        title: `Unexpected token ')'`,
+        suggestion: `Check parentheses in function call`,
+        location: "Line 8, Col 20",
+      },
+    ];
+
+    setDebugResults(dynamicDebugData);
     setActiveMode("debug");
-    toast.success("Bug detection started");
+    toast.success("🐞 Bug detection started");
   };
 
   return (
@@ -269,7 +274,8 @@ const CodeReviewPage = () => {
             </div>
           </div>
         )}
-        <div></div>
+
+        {/* ──────── debug results ──────── */}
         {activeMode === "debug" && (
           <div className="flex flex-col w-full md:w-1/2 border border-gray-700 rounded-lg p-5">
             <div className="flex justify-between items-center mb-4">
@@ -284,7 +290,7 @@ const CodeReviewPage = () => {
               {tabsBug.map((tab) => (
                 <button
                   key={tab}
-                  onClick={() => setActiveTabsBugs(tab)} // ✅ Fixed here
+                  onClick={() => setActiveTabsBugs(tab)}
                   className={`flex-1 p-2 cursor-pointer ${
                     activeTabsBugs === tab ? "bg-blue-600" : "bg-gray-700"
                   } first:rounded-l last:rounded-r`}
@@ -304,9 +310,9 @@ const CodeReviewPage = () => {
                     className={`font-bold ${
                       r.type === "Bug"
                         ? "text-red-400"
-                        : r.type === "Security"
+                        : r.type === "Syntax Errors"
                         ? "text-yellow-400"
-                        : r.type === "Performance"
+                        : r.type === "Logical Errors"
                         ? "text-green-400"
                         : "text-blue-400"
                     }`}
