@@ -7,9 +7,14 @@ import axios from "axios";
 import { Eye, EyeClosed } from "lucide-react";
 import { GoArrowRight } from "react-icons/go";
 import axiosInstance from "../lib/axios";
+import { toast } from "sonner";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const LogIn = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const {setUser,setIsLoggedIn,user} = useAuth()
+  const navigate = useNavigate();
 
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
@@ -20,7 +25,10 @@ const LogIn = () => {
     password: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState(null);
+
+  const handleSetError = (field,message)=> setErrors(prev=>({...prev, [field]:message}))
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,41 +40,36 @@ const LogIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationErrors = {};
 
     if (!formData.email.trim()) {
-      validationErrors.email = "Email is Required!";
+      handleSetError("email","Email is Required!")
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      validationErrors.email = "Invalid Email!";
+      handleSetError("email","Invalid Email!")
     }
 
     if (!formData.password.trim()) {
-      validationErrors.password = "Password is Required!";
+      handleSetError("password","Password is Required!")
     } else if (formData.password.length < 6) {
-      validationErrors.password =
-        "Password must be at least 6 characters long!";
+      handleSetError("password","Password must be at least 6 characters long!")
     }
-    setErrors(validationErrors);
 
-    if ((Object.key(validationErrors), length === 0)) {
+    if (!errors) {
       try {
-        const res = await axiosInstance.post(
-          "/auth/login",
-          formData
-        );
+        const res = await axiosInstance.post("/auth/login", formData);
 
-        // Save JWT to localStorage
-        localStorage.setItem("token", res.data.token);
-
-        alert("Login Successful!");
-
-        // Optionally navigate to dashboard
-        // navigate("/dashboard");
+        toast.success("Login Successful!");
+        const {user} = res.data;
+        setUser(user)
+        setIsLoggedIn(true)
+        navigate("/");
       } catch (err) {
-        alert(err.response?.data?.msg || "Login failed");
+        toast.error(err.response?.data?.msg || "Internal Server Error", {
+          id: "login-error",
+        });
       }
     }
   };
+
   return (
     <div className="flex justify-center bg-gradient-to-r from-blue-600 to-purple-600 h-screen items-center">
       <div className="p-4 w-[50%] rounded-md bg-gradient-to-r from-blue-700 to-purple-700">
@@ -85,7 +88,7 @@ const LogIn = () => {
                 onChange={handleChange}
                 value={formData.email}
               />
-              {errors.email && (
+              {errors && errors.email && (
                 <span className="text-red-400 text-[12px]">{errors.email}</span>
               )}
             </div>
@@ -101,7 +104,7 @@ const LogIn = () => {
                 onChange={handleChange}
                 value={formData.password}
               />
-              {errors.password && (
+              {errors && errors.password && (
                 <span className="text-red-400 text-[12px]">
                   {errors.password}
                 </span>

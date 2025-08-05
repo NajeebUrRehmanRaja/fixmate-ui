@@ -23,13 +23,14 @@ export const signup = async (req, res) => {
         secure: false, // Set to true in production (with HTTPS)
         maxAge: 24 * 60 * 60 * 1000, // 1 day
       })
-      .json({ user: { name: user.name, email: user.email } });
+      .json({ user: { ...user._doc, password: undefined } });
   } catch (err) {
     res.status(500).json({ msg: "Server Error" });
   }
 };
 
 export const login = async (req, res) => {
+  console.log("Request Received");
   const { email, password } = req.body;
 
   try {
@@ -39,6 +40,7 @@ export const login = async (req, res) => {
         .status(400)
         .json({ msg: "User is not exists. Please Sign up!" });
 
+    console.log(user);    
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1d" });
@@ -49,8 +51,9 @@ export const login = async (req, res) => {
         secure: false, // Set to true in production (with HTTPS)
         maxAge: 24 * 60 * 60 * 1000, // 1 day
       })
-      .json({ user: { name: user.name, email: user.email } });
+      .json({ user: { ...user._doc, password: undefined } });
   } catch (err) {
+    console.log("Something went wrong while logging in",err);
     res.status(500).json({ msg: "Server Error" });
   }
 };
@@ -77,7 +80,8 @@ export const getUser = async (req, res) => {
     const user = await User.findById(userId).select("-password");
     if (!user) return res.status(404).json({ msg: "User not found" });
 
-    res.status(200).json({msg: "User found", user});
+    res.status(200).json({ user: { ...user._doc, password: undefined } });
+;
   } catch (err) {
     res.status(500).json({ msg: "Server Error" });
   }

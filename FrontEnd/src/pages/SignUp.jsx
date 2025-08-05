@@ -5,9 +5,15 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { Eye, EyeClosed } from "lucide-react";
 import { GoArrowRight } from "react-icons/go";
+import { toast } from "sonner";
+import axiosInstance from "../lib/axios";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const {setIsLoggedIn,setUser} = useAuth()
+  const navigate = useNavigate();
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
   };
@@ -29,7 +35,7 @@ const Signup = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = {};
 
@@ -56,7 +62,20 @@ const Signup = () => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      alert("Signup Successful!");
+      try {
+        const res = await axiosInstance.post("/auth/signup", formData);
+
+        toast.success("Signup Successful!");
+        const {user} = res.data;
+        setUser(user)
+        setIsLoggedIn(true)
+        navigate("/");
+      } catch (err) {
+        console.log(err);
+        toast.error(err.response?.data?.msg || "Internal Server Error", {
+          id: "signup-error",
+        });
+      }
     }
   };
 

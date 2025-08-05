@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Home from "../pages/Home";
 import LogIn from "../pages/LogIn";
 import SignUp from "../pages/SignUp";
@@ -9,9 +9,11 @@ import ForgetPassword from "../pages/ForgetPassword";
 import NotFound from "../pages/NotFound";
 import GetStarted from "../pages/GetStarted";
 import NavbarLayout from "../Layouts/NavbarLayout";
+import {AlreadyAuthProvider} from "../components/providers/AlreadyAuthProvider";
 
 const AppRoutes = () => {
   return (
+    <BrowserRouter>
     <Routes>
       {/* All routes with navbar */}
       <Route path="/" element={<NavbarLayout />}>
@@ -22,11 +24,16 @@ const AppRoutes = () => {
       </Route>
 
       {/* Route without navbar */}
-      <Route path="login" element={<LogIn />} />
+      <Route path="login" element={
+        <AlreadyAuthProvider>
+          <LogIn />
+        </AlreadyAuthProvider>
+        } />
       <Route path="forgetpassword" element={<ForgetPassword />} />
       <Route path="signup" element={<SignUp />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
+    </BrowserRouter>
   );
 };
 

@@ -5,6 +5,7 @@ import { MdMenu, MdClose } from "react-icons/md"; // Import icons
 import { GoArrowRight } from "react-icons/go";
 import Container from "../components/Container";
 import { Code } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 
 // Utility function to handle active/inactive link styles
@@ -15,6 +16,7 @@ const getNavLinkClass = ({ isActive }) =>
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for mobile menu
+  const {isLoggedIn} = useAuth()
 
   return (
     <nav>
@@ -40,14 +42,14 @@ const Navbar = () => {
 
         {/* Buttons */}
         <div className="hidden md:flex space-x-4">
-          <Link to="/login">
+         {!isLoggedIn ? <Link to="/login">
             <Button
               variant="primary"
               className="border hover:border-l-transparent hover:border-r-transparent hover:border-t-transparent hover:shadow-xl hover:border-pink-600 py-2 px-10"
             >
               Login
             </Button>
-          </Link>
+          </Link>:<p>Already logged in</p> }
         </div>
       </Container>
     </nav>
