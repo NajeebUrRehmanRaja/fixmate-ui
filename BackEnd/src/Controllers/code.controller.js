@@ -111,12 +111,12 @@ const getUserCodeSnippets = async (req, res) => {
 const deleteCodeSnippet = async (req, res) => {
   try {
     const { id } = req.params;
-    const deleteCodeSnippet = await Code.findOneAndDelete({
+    const deleteCode = await Code.findOneAndDelete({
       _id: id,
       userid: req.userId,
     });
 
-    if (!deleteCodeSnippet) {
+    if (!deleteCode) {
       res.status(404).json({ msg: "Code snippet not found or not authorized" });
     }
 
@@ -137,7 +137,7 @@ const updateCodeSnippet = async (req, res) => {
       });
     }
 
-    const updateCodeSnippet = await Code.findByIdAndUpdate(
+    const updateCode = await Code.findByIdAndUpdate(
       {
         _id: id,
         userid: req.userId,
@@ -150,7 +150,7 @@ const updateCodeSnippet = async (req, res) => {
       }
     );
 
-    if (!updateCodeSnippet) {
+    if (!updateCode) {
       return res
         .status(404)
         .json({ msg: "Code snippet not found or not authorized" });
@@ -158,7 +158,7 @@ const updateCodeSnippet = async (req, res) => {
 
     res
       .status(200)
-      .json({ msg: "Code snippet updated successfully", updatedSnippet });
+      .json({ msg: "Code snippet updated successfully", updateCode });
   } catch (error) {
     console.log("Something went wrong while updating code snippet: ", error);
     res.status(500).json({ msg: "Server Error" });
