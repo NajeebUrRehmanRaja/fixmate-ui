@@ -9,30 +9,57 @@ import ForgetPassword from "../pages/ForgetPassword";
 import NotFound from "../pages/NotFound";
 import GetStarted from "../pages/GetStarted";
 import NavbarLayout from "../Layouts/NavbarLayout";
-import {AlreadyAuthProvider} from "../components/providers/AlreadyAuthProvider";
+import { AlreadyAuthProvider } from "../components/providers/AlreadyAuthProvider";
+import { WithAuthProvider } from "../components/providers/WithAuthProvider";
+import UserProfile from "../pages/UserProfile";
 
 const AppRoutes = () => {
   return (
     <BrowserRouter>
-    <Routes>
-      {/* All routes with navbar */}
-      <Route path="/" element={<NavbarLayout />}>
-        <Route index element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="report" element={<Report />} />
-        <Route path="getstarted" element={<GetStarted />} />
-      </Route>
+      <Routes>
+        {/* All routes with navbar */}
+        <Route path="/" element={<NavbarLayout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="report" element={<Report />} />
+          <Route
+            path="getstarted"
+            element={
+              // <WithAuthProvider>
+              <GetStarted />
+              // </WithAuthProvider>
+            }
+          />
+          <Route
+            path="userprofile"
+            element={
+              <WithAuthProvider>
+                <UserProfile />
+              </WithAuthProvider>
+            }
+          />
+        </Route>
 
-      {/* Route without navbar */}
-      <Route path="login" element={
-        <AlreadyAuthProvider>
-          <LogIn />
-        </AlreadyAuthProvider>
-        } />
-      <Route path="forgetpassword" element={<ForgetPassword />} />
-      <Route path="signup" element={<SignUp />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+        {/* Route without navbar */}
+        <Route
+          path="login"
+          element={
+            <AlreadyAuthProvider>
+              <LogIn />
+            </AlreadyAuthProvider>
+          }
+        />
+        <Route path="forgetpassword" element={<ForgetPassword />} />
+        <Route
+          path="signup"
+          element={
+            <AlreadyAuthProvider>
+              <SignUp />
+            </AlreadyAuthProvider>
+          }
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </BrowserRouter>
   );
 };

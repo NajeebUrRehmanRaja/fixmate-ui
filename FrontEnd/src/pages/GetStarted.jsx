@@ -100,7 +100,7 @@ const CodeReviewPage = () => {
       toast.error("Enter code before debugging");
       return;
     }
-
+   
     const dynamicDebugData = [
       {
         type: "Bug",
@@ -118,7 +118,7 @@ const CodeReviewPage = () => {
 
     setDebugResults(dynamicDebugData);
     setActiveMode("debug");
-    toast.success("🐞 Bug detection started");
+    toast.success("Bug detection started");
   };
 
   return (

@@ -5,6 +5,7 @@ const AuthContext = createContext(undefined);
 
 export const AuthContextProvider = ({children}) => {
     const [user,setUser] = useState(null)
+    const [isCheckingAuth,setIsCheckingAuth] = useState(true)
     const [isLoggedIn,setIsLoggedIn] = useState(false)
 
 
@@ -16,20 +17,22 @@ export const AuthContextProvider = ({children}) => {
             setIsLoggedIn(true);
         }catch (error) {
          console.log("Something went wrong while getting current user",error)   
+        }finally {
+            setIsCheckingAuth(false)
         }
     }
 
     useEffect(() => {
-       if(!user) {
         getCurrentUser();
-       }
-    }, [user])
+    }, [])
 
     const value = {
         user,
         setUser,
         isLoggedIn,
-        setIsLoggedIn
+        setIsLoggedIn,
+        isCheckingAuth,
+        setIsCheckingAuth
     }
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

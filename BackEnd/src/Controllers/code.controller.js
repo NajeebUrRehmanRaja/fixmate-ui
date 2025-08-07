@@ -137,24 +137,20 @@ const updateCodeSnippet = async (req, res) => {
       });
     }
 
-    const updateCode = await Code.findByIdAndUpdate(
-      {
-        _id: id,
-        userid: req.userId,
-      },
-      {
-        $set: { ...(code && { code }), ...(feedback && { feedback }) },
-      },
-      {
-        new: true,
-      }
-    );
+    const codeSnippet = await Code.findById(id);
 
-    if (!updateCode) {
+    if (!codeSnippet) {
       return res
         .status(404)
-        .json({ msg: "Code snippet not found or not authorized" });
+        .json({ msg: "Code snippet not found" });
     }
+
+    if(codeSnippet.userid.toString() !== req.userId.toString()){
+      return res.status(401).json({ msg: "Unauthorized: You are not allowed to update this code snippet"});
+    }
+
+    codeSnippet.code = code || codeSnippet.code;
+    codeSnippet.feedback = feedback || codeSnippet.feedback;
 
     res
       .status(200)
