@@ -1,18 +1,21 @@
 import React, { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
+import Avatar from "react-avatar";
 
 const UserProfile = () => {
-  const [user, setUser] = useState({
-    name: "Najeeb ur Rehman Raja",
-    email: "najeeb@ai.com",
-    avatar:
-      "https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg?semt=ais_hybrid&w=740",
-    bio: "Full-stack developer passionate about AI-powered code review systems.",
-    totalCodesSubmitted: 2,
-    reviews: [
-      { id: 1, title: "Bug Detection in Login.js", date: "2025-08-05" },
-      { id: 2, title: "Performance Issue in App.jsx", date: "2025-07-28" },
-    ],
-  });
+  const { user } = useAuth();
+  // const [user, setUser] = useState({
+  //   name: "Najeeb ur Rehman Raja",
+  //   email: "najeeb@ai.com",
+  //   avatar:
+  //     "https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg?semt=ais_hybrid&w=740",
+  //   bio: "Full-stack developer passionate about AI-powered code review systems.",
+  //   totalCodesSubmitted: 2,
+  //   reviews: [
+  //     { id: 1, title: "Bug Detection in Login.js", date: "2025-08-05" },
+  //     { id: 2, title: "Performance Issue in App.jsx", date: "2025-07-28" },
+  //   ],
+  // });
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState({
@@ -21,7 +24,7 @@ const UserProfile = () => {
   });
 
   const handleSave = () => {
-    setUser({ ...user, name: editedData.name, bio: editedData.bio });
+    // setUser({ ...user, name: editedData.name, bio: editedData.bio });
     setIsEditing(false);
   };
 
@@ -29,12 +32,22 @@ const UserProfile = () => {
     <div className="max-w-2xl pt-20 mx-auto p-6">
       {/* Profile Card */}
       <div className="bg-black shadow-lg rounded-2xl p-6 flex flex-col items-center">
-        <img
-          src={user.avatar}
-          alt="User Avatar"
-          className="w-28 h-28 rounded-full border-4 border-gray-200 shadow"
-        />
-        <h2 className="text-2xl font-bold mt-4">{user.name}</h2>
+        {user.imageUrl ? (
+          <img
+            src={user.imageUrl}
+            alt="User Avatar"
+            className="w-28 h-28 rounded-full border-4 border-gray-200 shadow"
+          />
+        ) : (
+          <Avatar
+            name={`${user.firstName} ${user.lastName}`}
+            size="100"
+            round={true}
+          />
+        )}
+        <h2 className="text-2xl font-bold mt-4">
+          {user.firstName} {user.lastName}
+        </h2>
         <p className="text-gray-600">{user.email}</p>
         <p className="mt-2 text-center text-gray-700 italic">{user.bio}</p>
 
@@ -42,10 +55,10 @@ const UserProfile = () => {
         <div className="mt-4 bg-gray-600 w-full p-3 rounded-lg text-center">
           <p className="text-lg font-semibold">
             Total Codes Submitted:{" "}
-            <span className="text-green-500">{user.totalCodesSubmitted}</span>
+            <span className="text-green-500">{user.credits}</span>
           </p>
         </div>
-        <div className="bg-gray-800 w-full shadow-md rounded-2xl mt-6 p-5">
+        {/* <div className="bg-gray-800 w-full shadow-md rounded-2xl mt-6 p-5">
           <h3 className="text-xl font-bold mb-3">Recent Code Reviews</h3>
           {user.reviews.length > 0 ? (
             <ul className="space-y-2">
@@ -62,7 +75,7 @@ const UserProfile = () => {
           ) : (
             <p className="text-gray-500">No reviews yet.</p>
           )}
-        </div>
+        </div> */}
         {/* Edit Button */}
         <button
           onClick={() => setIsEditing(true)}

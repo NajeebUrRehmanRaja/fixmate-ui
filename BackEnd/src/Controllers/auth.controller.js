@@ -1,4 +1,4 @@
-import  { User } from "../Models/User.Model.js";
+import { User } from "../Models/User.Model.js";
 import { env } from "../Config/env.config.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -40,7 +40,7 @@ export const login = async (req, res) => {
         .status(400)
         .json({ msg: "User is not exists. Please Sign up!" });
 
-    console.log(user);    
+    console.log(user);
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1d" });
@@ -53,7 +53,7 @@ export const login = async (req, res) => {
       })
       .json({ user: { ...user._doc, password: undefined } });
   } catch (err) {
-    console.log("Something went wrong while logging in",err);
+    console.log("Something went wrong while logging in", err);
     res.status(500).json({ msg: "Server Error" });
   }
 };
@@ -70,19 +70,19 @@ export const logout = async (req, res) => {
   } catch (err) {
     res.status(500).json({ msg: "Server Error" });
   }
-}
+};
 
 export const getUser = async (req, res) => {
   try {
     const userId = req.userId;
-    if (!userId) return res.status(401).json({ msg: "Unauthorized: UserId not found" });
+    if (!userId)
+      return res.status(401).json({ msg: "Unauthorized: UserId not found" });
 
     const user = await User.findById(userId).select("-password");
     if (!user) return res.status(404).json({ msg: "User not found" });
 
     res.status(200).json({ user: { ...user._doc, password: undefined } });
-;
   } catch (err) {
     res.status(500).json({ msg: "Server Error" });
   }
-}
+};

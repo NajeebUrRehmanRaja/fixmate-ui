@@ -1,12 +1,15 @@
-import React from 'react'
-import { useAuth } from '../../context/AuthContext'
-import { Navigate } from 'react-router-dom'
+import React from "react";
+import { useAuth } from "../../hooks/useAuth";
+import { Navigate } from "react-router-dom";
 
+export const WithAuthProvider = ({ children }) => {
+  const { isLoggedIn, isCheckingAuth } = useAuth();
 
-export const WithAuthProvider = ({children}) => {
-    const {isLoggedIn,isCheckingAuth} = useAuth();
-    
-    if(isCheckingAuth) return null;
+  if (isCheckingAuth) return null;
 
-    return  !isCheckingAuth && isLoggedIn ?   <>{children}</>:<Navigate to="/login" />
-}
+  return !isCheckingAuth && isLoggedIn ? (
+    <>{children}</>
+  ) : (
+    <Navigate to="/login" />
+  );
+};

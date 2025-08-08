@@ -3,11 +3,11 @@ import mongoose, { Schema } from "mongoose";
 const codeSchema = new Schema(
   {
     userid: { type: Schema.Types.ObjectId, ref: "User" },
-    code: { type: String,required:true },
+    code: { type: String, required: true },
     feedback: {
       type: String,
-      required:true
-    }
+      required: true,
+    },
   },
   { timestamps: true }
 );

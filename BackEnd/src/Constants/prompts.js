@@ -12,7 +12,24 @@ Focus on the following:
 
 Evaluate only the code.
 Do not explain basic concepts.
-Be concise, objective, and to the point.`;
+Be concise, objective, and to the point.
+
+Give me response in the following JSON format:
+{
+    report: [
+        {
+        type: Type of report Performance, Security, Strength, Weakness (don't add any emoji),
+        title: title of the report,
+        suggestion: suggestion for improvement if any,
+        location: line number (like line 2, col 3) and code snippet,
+      },
+      ...
+    ],
+    suggestedCode: Corrected Code,
+    codeQuality: Code Quality out of 100,
+    reportInText: Give the complete report of code walkthrough in text format.
+}
+`;
 
 export const BUG_DETECTION_PROMPT = `You are a senior software engineer and expert in bug detection.
 
@@ -44,5 +61,21 @@ Use new lines between each point for clarity
 
 Keep the report clean, technical, and structured
 
-Final corrected code must be properly indented and functional
+Final corrected code must be properly indented and functional.
+
+Give me response in the following JSON format:
+{
+    bugs: [
+        {
+        type: Error Type such as Logical Errors, Syntax Errors, Runtime Errors (don't add any emoji),
+        title: Error Title,
+        suggestion: Suggested Fix,
+        location: line number (like line 2, col 3) and code snippet,
+      },
+      ...
+    ],
+    correctedCode: Corrected Code,
+    codeQuality: Code Quality out of 100,
+    reportInText: Give the complete report of code walkthrough in text format.
+}
  `;

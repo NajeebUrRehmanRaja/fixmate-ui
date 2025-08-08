@@ -3,17 +3,16 @@ import Button from "../components/ButtonComponents";
 import { NavLink } from "react-router-dom";
 // import { FcGoogle } from "react-icons/fc";
 // import { FaGithub } from "react-icons/fa";
-import axios from "axios";
 import { Eye, EyeClosed } from "lucide-react";
 import { GoArrowRight } from "react-icons/go";
 import axiosInstance from "../lib/axios";
 import { toast } from "sonner";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 const LogIn = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const {setUser,setIsLoggedIn,user} = useAuth()
+  const { setUser, setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
 
   const togglePassword = () => {
@@ -27,8 +26,8 @@ const LogIn = () => {
 
   const [errors, setErrors] = useState(null);
 
-  const handleSetError = (field,message)=> setErrors(prev=>({...prev, [field]:message}))
-
+  const handleSetError = (field, message) =>
+    setErrors((prev) => ({ ...prev, [field]: message }));
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,15 +41,18 @@ const LogIn = () => {
     e.preventDefault();
 
     if (!formData.email.trim()) {
-      handleSetError("email","Email is Required!")
+      handleSetError("email", "Email is Required!");
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      handleSetError("email","Invalid Email!")
+      handleSetError("email", "Invalid Email!");
     }
 
     if (!formData.password.trim()) {
-      handleSetError("password","Password is Required!")
+      handleSetError("password", "Password is Required!");
     } else if (formData.password.length < 6) {
-      handleSetError("password","Password must be at least 6 characters long!")
+      handleSetError(
+        "password",
+        "Password must be at least 6 characters long!"
+      );
     }
 
     if (!errors) {
@@ -58,9 +60,9 @@ const LogIn = () => {
         const res = await axiosInstance.post("/auth/login", formData);
 
         toast.success("Login Successful!");
-        const {user} = res.data;
-        setUser(user)
-        setIsLoggedIn(true)
+        const { user } = res.data;
+        setUser(user);
+        setIsLoggedIn(true);
         navigate("/");
       } catch (err) {
         toast.error(err.response?.data?.msg || "Internal Server Error", {

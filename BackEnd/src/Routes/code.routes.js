@@ -8,10 +8,10 @@ import { authMiddleware } from "../Middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.use(authMiddleware)
+router.use(authMiddleware);
 
-router.get("/review-code",reviewCode);
-router.get("/find-bugs", findBugs);
+router.post("/review-code", reviewCode);
+router.post("/find-bugs", findBugs);
 router.post("/save-code", saveCodeSnippet);
 
 export default router;

@@ -5,8 +5,8 @@ import { MdMenu, MdClose } from "react-icons/md"; // Import icons
 import { GoArrowRight } from "react-icons/go";
 import Container from "../components/Container";
 import { Code } from "lucide-react";
-import { useAuth } from "../context/AuthContext";
-
+import { useAuth } from "../hooks/useAuth";
+import Avatar from "react-avatar";
 
 // Utility function to handle active/inactive link styles
 const getNavLinkClass = ({ isActive }) =>
@@ -16,7 +16,7 @@ const getNavLinkClass = ({ isActive }) =>
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for mobile menu
-  const {isLoggedIn} = useAuth()
+  const { isLoggedIn, user } = useAuth();
 
   return (
     <nav>
@@ -42,14 +42,34 @@ const Navbar = () => {
 
         {/* Buttons */}
         <div className="hidden md:flex space-x-4">
-         {!isLoggedIn ? <Link to="/login">
-            <Button
-              variant="primary"
-              className="border hover:border-l-transparent hover:border-r-transparent hover:border-t-transparent hover:shadow-xl hover:border-pink-600 py-2 px-10"
-            >
-              Login
-            </Button>
-          </Link>:<p>Already logged in</p> }
+          {!isLoggedIn ? (
+            <Link to="/login">
+              <Button
+                variant="primary"
+                className="border hover:border-l-transparent hover:border-r-transparent hover:border-t-transparent hover:shadow-xl hover:border-pink-600 py-2 px-10"
+              >
+                Login
+              </Button>
+            </Link>
+          ) : (
+            <>
+              <Link to="/getstarted">
+                <Button
+                  variant="primary"
+                  className="border hover:border-l-transparent hover:border-r-transparent hover:border-t-transparent hover:shadow-xl hover:border-pink-600 py-2 px-10"
+                >
+                  Get Started
+                </Button>
+              </Link>
+              <Link to="/userprofile">
+                <Avatar
+                  name={`${user.firstName} ${user.lastName}`}
+                  round={true}
+                  className="size-12! text-xs!"
+                />
+              </Link>
+            </>
+          )}
         </div>
       </Container>
     </nav>

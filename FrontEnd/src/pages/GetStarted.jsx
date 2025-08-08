@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import Editor from "@monaco-editor/react";
 import { saveAs } from "file-saver";
 import { toast } from "sonner";
+import axiosInstance from "../lib/axios";
+import { parseResponse } from "../utils/parse-response";
+import { LuLoaderCircle } from "react-icons/lu";
+import { AVAILABLE_LANGUAGES } from "../constants";
+import { IoChevronDownOutline } from "react-icons/io5";
 
 const tabs = ["All", "Security", "Performance", "Style"];
 const tabsBug = ["All", "Syntax Errors", "Logical Errors", "Runtime Errors"];
@@ -14,6 +19,10 @@ const CodeReviewPage = () => {
   const [code, setCode] = useState("");
   const [analysis, setAnalysis] = useState(""); // ← shared text
   const [activeMode, setActiveMode] = useState(null); // "review" | "debug" | null
+  const [language, setLanguage] = useState("javascript");
+  const [loading, setLoading] = useState(null);
+  const [codeQuality, setCodeQuality] = useState(0);
+  const [report, setReport] = useState("");
 
   const [reviewResults, setReviewResults] = useState([]);
   const [debugResults, setDebugResults] = useState([]);
@@ -34,16 +43,20 @@ const CodeReviewPage = () => {
     const file = e.target.files[0];
     if (!file) return;
 
+    const ext = file.name.split(".")[1].toLowerCase();
+    setLanguage(AVAILABLE_LANGUAGES[ext]);
+
     const reader = new FileReader();
-    reader.onload = (evt) => setCode(evt.target.result);
+    reader.onload = (evt) => {
+      setCode(evt.target.result);
+      setEditorTab("Code Editor");
+    };
     reader.readAsText(file);
   };
 
   const handleExportReport = () => {
-    const text = "Your code analysis results go here!";
-    setAnalysis(text); // save for copy
     saveAs(
-      new Blob([text], { type: "text/plain;charset=utf-8" }),
+      new Blob([report], { type: "text/plain;charset=utf-8" }),
       "code-analysis.txt"
     );
     toast.success("Report exported");
@@ -61,64 +74,102 @@ const CodeReviewPage = () => {
   };
 
   // ✅ Dynamic review handler
-  const handleReviewCode = () => {
+  const handleReviewCode = async () => {
     if (!code.trim()) {
       toast.error("Enter code before reviewing");
       return;
     }
 
-    // 🔥 Simulated dynamic results (you can replace this with API call)
-    const dynamicData = [
-      {
-        type: "Bug",
-        title: `Missing semicolon in your code`,
-        suggestion: `Add ';' at the end of statements`,
-        location: "Line 5, Col 12",
-      },
-      {
-        type: "Performance",
-        title: `Unnecessary nested loop detected`,
-        suggestion: `Use a map instead of nested loops`,
-        location: "Line 10, Col 3",
-      },
-      {
-        type: "Security",
-        title: `Direct eval() usage found`,
-        suggestion: `Avoid using eval() to prevent security risks`,
-        location: "Line 15, Col 6",
-      },
-    ];
+    try {
+      setLoading("review");
+      const res = await axiosInstance.post("/code/review-code", { code });
+      const { feedback } = res.data;
 
-    setReviewResults(dynamicData);
-    setActiveMode("review");
-    toast.success("🔍 Code review started");
+      const parsedResponse = parseResponse(feedback);
+
+      setReviewResults(parsedResponse.report);
+      setCodeQuality(parsedResponse.codeQuality);
+      setAnalysis(parsedResponse.correctedCode);
+      setReport(parsedResponse.reportInText);
+      setActiveMode("review");
+      toast.success("🔍 Code review successfully");
+    } catch (error) {
+      console.log("Something went wrong while getting current user", error);
+      toast.error(error.response?.data?.msg || "Internal Server Error");
+    } finally {
+      setLoading(null);
+    }
+
+    // 🔥 Simulated dynamic results (you can replace this with API call)
+    // const dynamicData = [
+    //   {
+    //     type: "Bug",
+    //     title: `Missing semicolon in your code`,
+    //     suggestion: `Add ';' at the end of statements`,
+    //     location: "Line 5, Col 12",
+    //   },
+    //   {
+    //     type: "Performance",
+    //     title: `Unnecessary nested loop detected`,
+    //     suggestion: `Use a map instead of nested loops`,
+    //     location: "Line 10, Col 3",
+    //   },
+    //   {
+    //     type: "Security",
+    //     title: `Direct eval() usage found`,
+    //     suggestion: `Avoid using eval() to prevent security risks`,
+    //     location: "Line 15, Col 6",
+    //   },
+    // ];
   };
 
   // ✅ Dynamic debug handler
-  const handleBugDetect = () => {
+  const handleBugDetect = async () => {
     if (!code.trim()) {
       toast.error("Enter code before debugging");
       return;
     }
-   
-    const dynamicDebugData = [
-      {
-        type: "Bug",
-        title: `Variable 'x' is not defined`,
-        suggestion: `Declare the variable before using it`,
-        location: "Line 2, Col 7",
-      },
-      {
-        type: "Syntax Errors",
-        title: `Unexpected token ')'`,
-        suggestion: `Check parentheses in function call`,
-        location: "Line 8, Col 20",
-      },
-    ];
 
-    setDebugResults(dynamicDebugData);
-    setActiveMode("debug");
-    toast.success("Bug detection started");
+    try {
+      setLoading("debug");
+      const res = await axiosInstance.post("/code/find-bugs", { code });
+      const { feedback } = res.data;
+
+      const parsedResponse = parseResponse(feedback);
+      console.log("parsedResponse", parsedResponse);
+
+      setDebugResults(parsedResponse.bugs);
+      setCodeQuality(parsedResponse.codeQuality);
+      setAnalysis(parsedResponse.correctedCode);
+      setReport(parsedResponse.reportInText);
+      setActiveMode("debug");
+      toast.success("🐞 Bug detected successfully");
+    } catch (error) {
+      console.log("Something went wrong while getting current user", error);
+      toast.error(error.response?.data?.msg || "Internal Server Error");
+    } finally {
+      setLoading(null);
+    }
+
+    // const dynamicDebugData = [
+    //   {
+    //     type: "Bug",
+    //     title: `Variable 'x' is not defined`,
+    //     suggestion: `Declare the variable before using it`,
+    //     location: "Line 2, Col 7",
+    //   },
+    //   {
+    //     type: "Syntax Errors",
+    //     title: `Unexpected token ')'`,
+    //     suggestion: `Check parentheses in function call`,
+    //     location: "Line 8, Col 20",
+    //   },
+    // ];
+  };
+
+  const handleFixChanges = () => {
+    console.log("clicked");
+    setCode(analysis);
   };
 
   return (
@@ -138,14 +189,29 @@ const CodeReviewPage = () => {
         >
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">Code Input</h2>
-            <select
-              className="bg-gray-800 text-white p-2 rounded cursor-pointer"
-              defaultValue="JavaScript"
-            >
-              <option value="C#">C#</option>
-              <option value="JavaScript">JavaScript</option>
-              <option value="Python">Python</option>
-            </select>
+            <div className="dropdown dropdown-end">
+              <div tabIndex={0} role="button" className="btn min-w-[120px]">
+                <span className="capitalize">{language}</span>
+                <IoChevronDownOutline />
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+              >
+                {Object.values(AVAILABLE_LANGUAGES).map((lang) => (
+                  <li key={lang}>
+                    <button
+                      className={`capitalize ${
+                        language === lang && "bg-primary/50"
+                      }`}
+                      onClick={() => setLanguage(lang)}
+                    >
+                      {lang}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <div className="flex mb-4">
@@ -165,7 +231,7 @@ const CodeReviewPage = () => {
           {editorTab === "Code Editor" ? (
             <Editor
               height="300px"
-              language="javascript"
+              language={language}
               value={code}
               onChange={(val) => setCode(val ?? "")}
               theme="vs-dark"
@@ -190,14 +256,24 @@ const CodeReviewPage = () => {
             <button
               className="mt-4 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 cursor-pointer"
               onClick={handleReviewCode}
+              disabled={loading === "review" || loading === "debug"}
             >
-              Review Code
+              {loading === "review" ? (
+                <LuLoaderCircle className="w-4 h-4 animate-spin" />
+              ) : (
+                "Review Code"
+              )}
             </button>
             <button
               className="mt-4 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 cursor-pointer"
               onClick={handleBugDetect}
+              disabled={loading === "review" || loading === "debug"}
             >
-              Debug Code
+              {loading === "debug" ? (
+                <LuLoaderCircle className="w-4 h-4 animate-spin" />
+              ) : (
+                "Debug Code"
+              )}
             </button>
           </div>
         </div>
@@ -209,7 +285,9 @@ const CodeReviewPage = () => {
               <h2 className="text-xl font-semibold">Analysis Results</h2>
               <span className="text-sm text-gray-400">
                 Code Quality:{" "}
-                <span className="text-green-400 font-bold">76/100</span>
+                <span className="text-green-400 font-bold">
+                  {codeQuality}/100
+                </span>
               </span>
             </div>
 
@@ -268,7 +346,10 @@ const CodeReviewPage = () => {
               >
                 Copy All Fixes
               </button>
-              <button className="flex-1 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700">
+              <button
+                className="flex-1 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700"
+                onClick={handleFixChanges}
+              >
                 Fix Selected Issues
               </button>
             </div>
@@ -282,7 +363,9 @@ const CodeReviewPage = () => {
               <h2 className="text-xl font-semibold">Debugging Results</h2>
               <span className="text-sm text-gray-400">
                 Code Quality:{" "}
-                <span className="text-green-400 font-bold">76/100</span>
+                <span className="text-green-400 font-bold">
+                  {codeQuality}/100
+                </span>
               </span>
             </div>
 
@@ -341,7 +424,10 @@ const CodeReviewPage = () => {
               >
                 Copy All Fixes
               </button>
-              <button className="flex-1 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 cursor-pointer">
+              <button
+                className="flex-1 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 cursor-pointer"
+                onClick={handleFixChanges}
+              >
                 Fix Selected Issues
               </button>
             </div>

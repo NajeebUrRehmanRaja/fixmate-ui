@@ -7,12 +7,12 @@ import { Eye, EyeClosed } from "lucide-react";
 import { GoArrowRight } from "react-icons/go";
 import { toast } from "sonner";
 import axiosInstance from "../lib/axios";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const {setIsLoggedIn,setUser} = useAuth()
+  const { setIsLoggedIn, setUser } = useAuth();
   const navigate = useNavigate();
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
@@ -66,9 +66,9 @@ const Signup = () => {
         const res = await axiosInstance.post("/auth/signup", formData);
 
         toast.success("Signup Successful!");
-        const {user} = res.data;
-        setUser(user)
-        setIsLoggedIn(true)
+        const { user } = res.data;
+        setUser(user);
+        setIsLoggedIn(true);
         navigate("/");
       } catch (err) {
         console.log(err);
@@ -84,7 +84,6 @@ const Signup = () => {
       <div className="p-4 w-[50%] rounded-md bg-gradient-to-r from-blue-700 to-purple-700">
         <div>
           <h1 className="text-2xl">Login/Signup</h1>
-
 
           <form onSubmit={handleSubmit}>
             <div className="">
