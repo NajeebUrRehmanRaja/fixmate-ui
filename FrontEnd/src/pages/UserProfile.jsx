@@ -1,22 +1,10 @@
 import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import Avatar from "react-avatar";
+import LogoutButton from "../components/LogoutButton";
 
 const UserProfile = () => {
   const { user } = useAuth();
-  // const [user, setUser] = useState({
-  //   name: "Najeeb ur Rehman Raja",
-  //   email: "najeeb@ai.com",
-  //   avatar:
-  //     "https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg?semt=ais_hybrid&w=740",
-  //   bio: "Full-stack developer passionate about AI-powered code review systems.",
-  //   totalCodesSubmitted: 2,
-  //   reviews: [
-  //     { id: 1, title: "Bug Detection in Login.js", date: "2025-08-05" },
-  //     { id: 2, title: "Performance Issue in App.jsx", date: "2025-07-28" },
-  //   ],
-  // });
-
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState({
     name: user.name,
@@ -77,12 +65,15 @@ const UserProfile = () => {
           )}
         </div> */}
         {/* Edit Button */}
-        <button
-          onClick={() => setIsEditing(true)}
-          className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
-        >
-          Edit Profile
-        </button>
+        <div>
+          <button
+            onClick={() => setIsEditing(true)}
+            className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+          >
+            Edit Profile
+          </button>
+          <LogoutButton />
+        </div>
       </div>
 
       {/* Edit Modal */}

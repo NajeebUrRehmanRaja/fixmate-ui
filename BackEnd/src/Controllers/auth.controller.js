@@ -58,18 +58,13 @@ export const login = async (req, res) => {
   }
 };
 
-export const logout = async (req, res) => {
-  try {
-    res
-      .clearCookie("token", {
-        httpOnly: true,
-        sameSite: "Lax", // Use 'None' if cross-site & with HTTPS
-        secure: false, // Set to true in production (with HTTPS)
-      })
-      .json({ msg: "Logged out successfully" });
-  } catch (err) {
-    res.status(500).json({ msg: "Server Error" });
-  }
+export const logout = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true, // true in production (HTTPS)
+    sameSite: "strict",
+  });
+  return res.status(200).json({ message: "Logged out successfully" });
 };
 
 export const getUser = async (req, res) => {
