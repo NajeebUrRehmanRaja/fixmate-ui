@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import Button from "../components/ButtonComponents";
 
@@ -44,7 +44,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Hero Section */}
-      <section className="py-20 px-4 md:px-6 text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+      <section className="p-20 md:px-6 text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
         <p className="text-lg max-w-2xl mx-auto">
           Have a question, suggestion, or need support? Reach out to us and
@@ -54,12 +54,12 @@ const Contact = () => {
 
       {/* Form Section */}
       <section className="flex justify-center items-center flex-1 px-4 md:px-6 mt-12 mb-5">
-        <div className="bg-black shadow-lg rounded-xl p-10 w-full max-w-2xl border border-gray-200">
+        <div className="bg-black shadow-lg rounded-xl p-5 w-full max-w-2xl border border-gray-200">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="flex flex-col">
               <label
                 htmlFor="name"
-                className="mb-2 font-semibold text-gray-700"
+                className="mb-2 font-semibold text-white"
               >
                 Name
               </label>
@@ -79,7 +79,7 @@ const Contact = () => {
             <div className="flex flex-col">
               <label
                 htmlFor="email"
-                className="mb-2 font-semibold text-gray-700"
+                className="mb-2 font-semibold text-white"
               >
                 Email
               </label>
@@ -101,7 +101,7 @@ const Contact = () => {
             <div className="flex flex-col">
               <label
                 htmlFor="message"
-                className="mb-2 font-semibold text-gray-700"
+                className="mb-2 font-semibold text-white"
               >
                 Message
               </label>
