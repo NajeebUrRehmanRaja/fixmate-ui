@@ -7,6 +7,7 @@ import { parseResponse } from "../utils/parse-response";
 import { LuLoaderCircle } from "react-icons/lu";
 import { AVAILABLE_LANGUAGES } from "../constants";
 import { IoChevronDownOutline } from "react-icons/io5";
+// import { User } from "lucide-react";
 
 const tabs = ["All", "Security", "Performance", "Style"];
 const tabsBug = ["All", "Syntax Errors", "Logical Errors", "Runtime Errors"];
@@ -73,7 +74,6 @@ const CodeReviewPage = () => {
       .catch(() => toast.error("Clipboard failed"));
   };
 
-  // ✅ Dynamic review handler
   const handleReviewCode = async () => {
     if (!code.trim()) {
       toast.error("Enter code before reviewing");
@@ -95,35 +95,12 @@ const CodeReviewPage = () => {
       toast.success("🔍 Code review successfully");
     } catch (error) {
       console.log("Something went wrong while getting current user", error);
-      toast.error(error.response?.data?.msg || "Internal Server Error");
+      toast.error(error.response?.data?.msg || "Please Create an account");
     } finally {
       setLoading(null);
     }
-
-    // 🔥 Simulated dynamic results (you can replace this with API call)
-    // const dynamicData = [
-    //   {
-    //     type: "Bug",
-    //     title: `Missing semicolon in your code`,
-    //     suggestion: `Add ';' at the end of statements`,
-    //     location: "Line 5, Col 12",
-    //   },
-    //   {
-    //     type: "Performance",
-    //     title: `Unnecessary nested loop detected`,
-    //     suggestion: `Use a map instead of nested loops`,
-    //     location: "Line 10, Col 3",
-    //   },
-    //   {
-    //     type: "Security",
-    //     title: `Direct eval() usage found`,
-    //     suggestion: `Avoid using eval() to prevent security risks`,
-    //     location: "Line 15, Col 6",
-    //   },
-    // ];
   };
 
-  // ✅ Dynamic debug handler
   const handleBugDetect = async () => {
     if (!code.trim()) {
       toast.error("Enter code before debugging");
@@ -146,25 +123,10 @@ const CodeReviewPage = () => {
       toast.success("🐞 Bug detected successfully");
     } catch (error) {
       console.log("Something went wrong while getting current user", error);
-      toast.error(error.response?.data?.msg || "Internal Server Error");
+      toast.error(error.response?.data?.msg || "Please Create an account");
     } finally {
       setLoading(null);
     }
-
-    // const dynamicDebugData = [
-    //   {
-    //     type: "Bug",
-    //     title: `Variable 'x' is not defined`,
-    //     suggestion: `Declare the variable before using it`,
-    //     location: "Line 2, Col 7",
-    //   },
-    //   {
-    //     type: "Syntax Errors",
-    //     title: `Unexpected token ')'`,
-    //     suggestion: `Check parentheses in function call`,
-    //     location: "Line 8, Col 20",
-    //   },
-    // ];
   };
 
   const handleFixChanges = () => {

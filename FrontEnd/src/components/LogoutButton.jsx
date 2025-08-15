@@ -2,7 +2,9 @@
 import React from "react";
 import axios from "axios";
 import { useAuth } from "../hooks/useAuth";
-
+import {
+  FiLogOut,
+} from "react-icons/fi";
 const LogoutButton = () => {
   const { setUser } = useAuth(); // Clear user state after logout
 
@@ -23,8 +25,9 @@ const LogoutButton = () => {
   return (
     <button
       onClick={handleLogout}
-      className="mt-4 px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 cursor-pointer "
+      className="flex items-center w-full px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-700 transition mt-4"
     >
+      <FiLogOut className="mr-3" />
       Logout
     </button>
   );

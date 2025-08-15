@@ -1,5 +1,5 @@
 import React from "react";
-import { Icons } from "react-toastify";
+// import { Icons } from "react-toastify";
 
 const Button = ({
   type = "button",

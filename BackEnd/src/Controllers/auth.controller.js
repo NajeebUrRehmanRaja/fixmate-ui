@@ -38,7 +38,7 @@ export const login = async (req, res) => {
     if (!user)
       return res
         .status(400)
-        .json({ msg: "User is not exists. Please Sign up!" });
+        .json({ msg: "User does not exist. Please sign up!" });
 
     console.log(user);
     const isMatch = await bcrypt.compare(password, user.password);

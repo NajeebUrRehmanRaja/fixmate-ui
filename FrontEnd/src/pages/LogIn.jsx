@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "../components/ButtonComponents";
 import { NavLink } from "react-router-dom";
 // import { FcGoogle } from "react-icons/fc";
@@ -58,12 +58,11 @@ const LogIn = () => {
     if (!errors) {
       try {
         const res = await axiosInstance.post("/auth/login", formData);
-
         toast.success("Login Successful!");
         const { user } = res.data;
         setUser(user);
         setIsLoggedIn(true);
-        navigate("/");
+        navigate("/getstarted");
       } catch (err) {
         toast.error(err.response?.data?.msg || "Internal Server Error", {
           id: "login-error",
@@ -71,7 +70,7 @@ const LogIn = () => {
       }
     }
   };
-
+  
   return (
     <div className="flex justify-center bg-gradient-to-r from-blue-600 to-purple-600 h-screen items-center">
       <div className="p-4 w-[50%] rounded-md bg-gradient-to-r from-blue-700 to-purple-700">

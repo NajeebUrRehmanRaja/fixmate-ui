@@ -1,13 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/ButtonComponents";
 import { GoArrowRight } from "react-icons/go";
 import { Bug, Shield, Zap, Code, Check, Sparkles } from "lucide-react";
 import AIReviewBox from "../Layouts/AiReviewBox";
 import Cards from "../components/Cards";
 import Container from "../components/Container"
-import Footer from "../pages/Footer"
 import HowItWorks from "./HowItWorks";
+import { useAuth } from "../hooks/useAuth";
 
 // For Code Review Dialog Box
 const codeExmple = `
@@ -64,6 +63,12 @@ const issues = [
   },
 ];
 
+const hasAuthCookie = (names = ["token", "accessToken", "jwt"]) => {
+  return document.cookie
+    .split(";")
+    .map((c) => c.trim())
+    .some((c) => names.some((n) => c.startsWith(`${n}=`)));
+};
 const Home = () => {
   return (
     <Container className="flex flex-col items-center justify-center pt-40 ">
@@ -85,7 +90,7 @@ const Home = () => {
           code reviews, bug detection, and smart suggestions.
         </p>
       </div>
-      <Link to={"/getstarted"}>
+      <Link to="/getstarted" >
         <Button
           variant="primary"
           className="mt-4 flex flex-row items-center gap-1 border hover:border-l-transparent hover:border-r-transparent hover:border-t-transparent hover:shadow-purple-400 hover:border-pink-600"

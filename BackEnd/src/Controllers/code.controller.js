@@ -163,6 +163,88 @@ const updateCodeSnippet = async (req, res) => {
   }
 };
 
+const getCodeStats = async (req, res) => {
+  try {
+    // Fetch all snippets for the logged-in user
+    const snippets = await Code.find({ userid: req.userId });
+
+    if (!snippets || snippets.length === 0) {
+      return res.status(404).json({ msg: "No code snippets found" });
+    }
+
+    // Calculate stats
+    const totalSnippets = snippets.length;
+    const totalFeedbackLength = snippets.reduce(
+      (sum, snip) => sum + (snip.feedback?.length || 0),
+      0
+    );
+    const averageFeedbackLength = (totalFeedbackLength / totalSnippets).toFixed(
+      2
+    );
+
+    // If codeQuality is stored in feedback as a number, parse it
+    const qualities = snippets
+      .map((snip) => snip.codeQuality)
+      .filter((q) => typeof q === "number");
+
+    const avgQuality = qualities.length
+      ? (qualities.reduce((a, b) => a + b, 0) / qualities.length).toFixed(2)
+      : null;
+
+    // Guess most common language if stored (optional)
+    const languageCounts = {};
+    snippets.forEach((snip) => {
+      if (snip.language) {
+        languageCounts[snip.language] =
+          (languageCounts[snip.language] || 0) + 1;
+      }
+    });
+    const mostUsedLanguage =
+      Object.entries(languageCounts).sort((a, b) => b[1] - a[1])[0]?.[0] ||
+      null;
+
+    res.status(200).json({
+      msg: "Code statistics fetched successfully",
+      stats: {
+        totalSnippets,
+        averageFeedbackLength,
+        averageCodeQuality: avgQuality,
+        mostUsedLanguage,
+      },
+    });
+  } catch (error) {
+    console.log("Error fetching code stats:", error);
+    res.status(500).json({ msg: "Server Error" });
+  }
+};
+const getRecentActivity = async (req, res) => {
+  try {
+    // Find latest code snippets by the logged-in user, newest first
+    const recentSnippets = await Code.find({ userid: req.userId })
+      .sort({ createdAt: -1 }) // newest first
+      .limit(10); // adjust number of activities to return
+
+    if (!recentSnippets || recentSnippets.length === 0) {
+      return res.status(404).json({ msg: "No recent activity found" });
+    }
+
+    // Map activity data
+    const activityData = recentSnippets.map((snip) => ({
+      id: snip._id,
+      language: snip.language || "Unknown",
+      createdAt: snip.createdAt,
+      feedback: snip.feedback || "No feedback available",
+    }));
+
+    res.status(200).json({
+      msg: "Recent activity fetched successfully",
+      recentActivity: activityData,
+    });
+  } catch (error) {
+    console.error("Error fetching recent activity:", error);
+    res.status(500).json({ msg: "Server Error" });
+  }
+};
 export {
   reviewCode,
   findBugs,
@@ -170,4 +252,6 @@ export {
   getUserCodeSnippets,
   deleteCodeSnippet,
   updateCodeSnippet,
+  getCodeStats,
+  getRecentActivity,
 };
