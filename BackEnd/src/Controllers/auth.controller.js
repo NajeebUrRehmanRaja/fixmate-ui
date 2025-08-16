@@ -6,14 +6,19 @@ import jwt from "jsonwebtoken";
 const JWT_SECRET = env.JWT_SECRET;
 
 export const signup = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
 
   try {
     const userExists = await User.findOne({ email });
     if (userExists) return res.status(400).json({ msg: "User Exists Already" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ name, email, password: hashedPassword });
+    const user = await User.create({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+    });
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1d" });
     res
@@ -25,6 +30,7 @@ export const signup = async (req, res) => {
       })
       .json({ user: { ...user._doc, password: undefined } });
   } catch (err) {
+    console.log("something wrong while signup", err)
     res.status(500).json({ msg: "Server Error" });
   }
 };
