@@ -7,7 +7,7 @@ import {
 const codeReviewer = async (code) => {
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
+      model: "gemini-2.5-flash-lite",
       contents: JSON.stringify(code),
       config: {
         systemInstruction: CODE_REVIEW_PROMPT,
@@ -24,7 +24,7 @@ const codeReviewer = async (code) => {
 const bugFinder = async (code) => {
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
+      model: "gemini-2.5-flash-lite",
       contents: JSON.stringify(code),
       config: {
         systemInstruction: BUG_DETECTION_PROMPT,
