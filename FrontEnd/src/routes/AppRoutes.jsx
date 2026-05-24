@@ -2,7 +2,6 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Home from "../pages/Home";
 import LogIn from "../pages/LogIn";
 import SignUp from "../pages/SignUp";
-import About from "../pages/About";
 import Report from "../pages/Report";
 import ForgetPassword from "../pages/ForgetPassword";
 import NotFound from "../pages/NotFound";
@@ -11,9 +10,7 @@ import NavbarLayout from "../Layouts/NavbarLayout";
 import { AlreadyAuthProvider } from "../components/providers/AlreadyAuthProvider";
 import { WithAuthProvider } from "../components/providers/WithAuthProvider";
 import UserProfile from "../pages/UserProfile";
-import Contact  from "../pages/Contact";
 import Features from "../pages/Features";
-import Faqs from "../pages/Faqs"
 const AppRoutes = () => {
   return (
     <BrowserRouter>
@@ -21,10 +18,7 @@ const AppRoutes = () => {
         {/* All routes with navbar */}
         <Route path="/" element={<NavbarLayout />}>
           <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
           <Route path="features" element={<Features />} />
-          <Route path="faqs" element={<Faqs />} />
           <Route path="report" element={<Report />} />
           <Route
             path="userprofile"
