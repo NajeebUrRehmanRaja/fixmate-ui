@@ -32,15 +32,6 @@ const Navbar = () => {
           <NavLink to="/" className={getNavLinkClass}>
             Home
           </NavLink>
-          <NavLink to="/about" className={getNavLinkClass}>
-            About
-          </NavLink>
-          <NavLink to="/contact" className={getNavLinkClass}>
-            Contact
-          </NavLink>
-          <NavLink to="/faqs" className={getNavLinkClass}>
-            FaQs
-          </NavLink>
         </div>
 
         {/* Hamburger Icon for Mobile */}
